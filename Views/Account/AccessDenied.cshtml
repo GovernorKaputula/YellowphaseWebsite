@@ -1,0 +1,138 @@
+﻿@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Security Access Revoked";
+}
+
+<style>
+    /* Premium Security View Wrapper */
+    .access-denied-wrapper {
+        background-color: #F8FAFC;
+        min-height: 80vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    :root {
+        --coop-gold: #B59410;
+        --coop-gold-hover: #91750A;
+        --coop-dark: #0F172A;
+        --coop-muted: #64748B;
+    }
+
+    /* Elevated Vault Hologram Icon */
+    .security-shield-glow {
+        width: 80px;
+        height: 80px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 24px;
+        background: rgba(15, 23, 42, 0.03);
+        border: 1px solid rgba(15, 23, 42, 0.05);
+        color: var(--coop-dark);
+        box-shadow: 0 8px 24px rgba(15, 23, 42, 0.02);
+        position: relative;
+    }
+
+        .security-shield-glow i {
+            font-size: 2.25rem;
+        }
+
+    /* Flash pulse indicating automated protocol protection */
+    .security-pulse-indicator {
+        position: absolute;
+        top: -2px;
+        right: -2px;
+        width: 12px;
+        height: 12px;
+        background-color: #EF4444;
+        border: 2px solid #FFFFFF;
+        border-radius: 50%;
+    }
+
+    /* Premium Action Buttons */
+    .btn-coop-primary {
+        background: linear-gradient(135deg, #C5A422 0%, #91750A 100%);
+        color: #FFFFFF !important;
+        font-weight: 600;
+        border: none;
+        box-shadow: 0 4px 14px rgba(181, 148, 16, 0.2);
+        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+        .btn-coop-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(181, 148, 16, 0.35);
+            background: linear-gradient(135deg, #D6B533 0%, #A28413 100%);
+        }
+
+    .btn-coop-outline {
+        background: #FFFFFF;
+        color: var(--coop-dark) !important;
+        font-weight: 500;
+        border: 1px solid rgba(15, 23, 42, 0.12);
+        transition: all 0.2s ease;
+    }
+
+        .btn-coop-outline:hover {
+            background-color: #F8FAFC;
+            border-color: rgba(15, 23, 42, 0.3);
+        }
+</style>
+
+<div class="container-fluid px-3 access-denied-wrapper">
+    <div class="row justify-content-center w-100 mx-0">
+        <div class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5 text-center">
+
+            <div class="card border-0 shadow-sm rounded-4 p-4 p-sm-5 bg-white">
+
+                <div class="mb-4">
+                    <div class="security-shield-glow">
+                        <i class="bi bi-shield-lock text-gold"></i>
+                        <span class="security-pulse-indicator"></span>
+                    </div>
+                </div>
+
+                <span class="badge rounded-pill px-3 py-1.5 small mb-3 fw-bold font-monospace tracking-wider text-uppercase" style="background-color: rgba(239, 68, 68, 0.08); color: #EF4444;">
+                    Error Code: 403 Restricted
+                </span>
+
+                <h2 class="fw-bold tracking-tight text-dark mb-2">
+                    Access Clearance Required
+                </h2>
+
+                <p class="text-secondary mb-4 mx-auto" style="max-w: 85%; font-size: 0.975rem; line-height: 1.6;">
+                    Your account profile does not possess the requisite clearance matrix to view this directory block. If you believe this is a validation error, contact your compliance officer.
+                </p>
+
+                <div class="rounded-3 p-3 mb-4 text-start border border-opacity-50" style="background-color: #F8FAFC;">
+                    <div class="row g-2 font-monospace small text-secondary">
+                        <div class="col-4 fw-medium text-uppercase text-muted" style="font-size: 0.7rem; letter-spacing: 0.05em;">Trace Resource:</div>
+                        <div class="col-8 text-dark text-truncate" style="font-size: 0.8rem;">@Context.Request.Path</div>
+
+                        <div class="col-4 fw-medium text-uppercase text-muted" style="font-size: 0.7rem; letter-spacing: 0.05em;">Timestamp:</div>
+                        <div class="col-8 text-dark" style="font-size: 0.8rem;">@DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss") UTC</div>
+                    </div>
+                </div>
+
+                <div class="d-flex flex-column flex-sm-row justify-content-center gap-2.5">
+                    <a href="@Url.Action("Index", "Home")" class="btn btn-coop-primary rounded-pill px-4 py-2.5 small">
+                        <i class="bi bi-arrow-left me-2 small"></i>Return to Portal Dashboard
+                    </a>
+                    <a href="@Url.Action("Login", "Account")" class="btn btn-coop-outline rounded-pill px-4 py-2.5 small">
+                        <i class="bi bi-person-lines-fill me-2 small"></i>Switch Operator Session
+                    </a>
+                </div>
+
+                <div class="mt-4 pt-2 border-top border-light">
+                    <a href="#" class="text-decoration-none text-gold small fw-medium">
+                        <i class="bi bi-question-circle me-1 small"></i>Request Structural Permission Key
+                    </a>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>

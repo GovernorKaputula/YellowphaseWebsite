@@ -1,0 +1,281 @@
+﻿<div class="modal fade" id="editProductModal" tabindex="-1" aria-labelledby="editProductModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content border-0 rounded-4 shadow-lg overflow-hidden bg-white">
+
+            <!-- PREMIUM MODAL HEADER -->
+            <div class="modal-header bg-dark text-white p-4 border-0 d-flex align-items-center justify-content-between" style="background: linear-gradient(145deg, #0F172A 0%, #1E293B 100%) !important;">
+                <div class="d-flex align-items-center gap-3">
+                    <div class="header-icon-frame rounded-3 d-flex align-items-center justify-content-center text-warning" style="width: 44px; height: 44px; background-color: rgba(181, 148, 16, 0.15); color: #B59410 !important;">
+                        <i class="bi bi-pencil-square fs-5"></i>
+                    </div>
+                    <div>
+                        <h5 class="modal-title fw-bold tracking-tight mb-0" id="editProductModalLabel" style="font-size: 1.15rem;">Modify Asset Configuration</h5>
+                        <p class="text-white-50 small mb-0 opacity-75" style="font-size: 0.75rem;">Updating data modifies pipeline entries across public and index registries immediately.</p>
+                    </div>
+                </div>
+                <button type="button" class="btn-close btn-close-white shadow-none opacity-75" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <!-- ADMINISTRATIVE MODIFICATION FORM -->
+            <form asp-area="Admin" asp-controller="Products" asp-action="Edit" method="post" id="editProductForm" enctype="multipart/form-data">
+                <div class="modal-body p-4" style="background-color: #F8FAFC;">
+
+                    <input type="hidden" id="edit_Id" name="Id" />
+
+                    <!-- SECTION 1: CORE METRICS -->
+                    <div class="mb-4">
+                        <span class="d-block text-uppercase tracking-wider fw-bold text-secondary mb-3" style="font-size: 0.725rem; letter-spacing: 0.05em;">01. Core Asset Identifiers</span>
+                        <div class="row g-3">
+                            <div class="col-md-7">
+                                <label class="form-label small fw-semibold text-dark mb-1">Product Name</label>
+                                <div class="input-group shadow-sm rounded-3 overflow-hidden">
+                                    <span class="input-group-text bg-white border-end-0 text-muted px-3"><i class="bi bi-tag"></i></span>
+                                    <input type="text" id="edit_Name" name="Name" class="form-control ps-2" placeholder="e.g. Premium Distribution Transformer" required />
+                                </div>
+                            </div>
+
+                            <div class="col-md-5">
+                                <label class="form-label small fw-semibold text-dark mb-1">Base Valuation (Price)</label>
+                                <div class="input-group shadow-sm rounded-3 overflow-hidden">
+                                    <span class="input-group-text bg-white border-end-0 text-dark fw-bold px-3">$</span>
+                                    <input type="number" id="edit_Price" name="Price" class="form-control ps-2 fw-bold font-monospace text-dark" step="0.01" placeholder="0.00" required />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SECTION 2: TAXONOMY -->
+                    <div class="mb-4">
+                        <span class="d-block text-uppercase tracking-wider fw-bold text-secondary mb-3" style="font-size: 0.725rem; letter-spacing: 0.05em;">02. Taxonomy &amp; Structural Groupings</span>
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <label class="form-label small fw-semibold text-dark mb-1">Category Group</label>
+                                <div class="input-group shadow-sm rounded-3 overflow-hidden">
+                                    <span class="input-group-text bg-white border-end-0 text-muted px-3"><i class="bi bi-folder2"></i></span>
+                                    <input type="text" id="edit_Category" name="Category" class="form-control ps-2" placeholder="Heavy Duty" required />
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label class="form-label small fw-semibold text-dark mb-1">Product Type</label>
+                                <div class="input-group shadow-sm rounded-3 overflow-hidden">
+                                    <span class="input-group-text bg-white border-end-0 text-muted px-3"><i class="bi bi-boxes"></i></span>
+                                    <select id="edit_ProductType" name="ProductType" class="form-select ps-2" required>
+                                        <option value="Hardware">Hardware</option>
+                                        <option value="Component">Component</option>
+                                        <option value="Service Line">Service Line</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label class="form-label small fw-semibold text-dark mb-1">SKU / Product Code</label>
+                                <div class="input-group shadow-sm rounded-3 overflow-hidden">
+                                    <span class="input-group-text bg-white border-end-0 text-muted px-3"><i class="bi bi-qr-code"></i></span>
+                                    <input type="text" id="edit_ProductCode" name="ProductCode" class="form-control font-monospace small ps-2" placeholder="YP-XXXX" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SECTION 3: MEDIA PIPELINE & DESCRIPTION -->
+                    <div class="mb-3">
+                        <span class="d-block text-uppercase tracking-wider fw-bold text-secondary mb-3" style="font-size: 0.725rem; letter-spacing: 0.05em;">03. Presentation Layers &amp; Media Asset Pipes</span>
+                        <div class="row g-3">
+                            <div class="col-12">
+                                <label class="form-label small fw-semibold text-dark mb-1">Upload Product Asset Illustration</label>
+                                <div class="d-flex gap-3 align-items-center bg-white p-3 border rounded-3 shadow-sm">
+                                    <div class="flex-grow-1">
+                                        <input type="file" id="edit_ImageFile" name="ImageFile" class="form-control shadow-none" accept="image/*" onchange="previewEditImage(this)" />
+                                    </div>
+                                    <!-- Dynamic Premium Sized Preview Unit Box Component -->
+                                    <div class="edit-preview-box border rounded-3 overflow-hidden bg-light d-flex align-items-center justify-content-center shadow-sm flex-shrink-0" style="width: 64px; height: 64px; border-color: rgba(15, 23, 42, 0.08) !important;">
+                                        <img id="edit_PreviewImg" src="" alt="Asset Preview" class="w-100 h-100 object-fit-cover d-none" onerror="handleEditPreviewError()" />
+                                        <i id="edit_PreviewPlaceholder" class="bi bi-image text-muted fs-4 opacity-50"></i>
+                                    </div>
+                                </div>
+                                <small class="text-muted d-block mt-1.5" style="font-size: 0.72rem;">Acceptable file systems: PNG, JPG, JPEG, or WEBP. Max file dimensions recommended: 800x800px.</small>
+                            </div>
+
+                            <div class="col-12">
+                                <label class="form-label small fw-semibold text-dark mb-1">Functional Technical Specification Parameters</label>
+                                <textarea id="edit_Description" name="Description" rows="3" class="form-control rounded-3 p-3 text-dark small shadow-sm" placeholder="Specify complete internal mechanical data, power distribution layout logs, or deployment restrictions details..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- BOTTOM METRIC VISIBILITY SWITCHER LAYER -->
+                    <div class="border-top pt-3 mt-3" style="border-color: rgba(15, 23, 42, 0.06) !important;">
+                        <div class="row align-items-center g-3">
+                            <div class="col-md-7">
+                                <div class="d-flex gap-2 align-items-start">
+                                    <i class="bi bi-shield-exclamation text-secondary mt-0.5" style="color: var(--coop-gold) !important;"></i>
+                                    <p class="mb-0 text-muted small" style="font-size: 0.75rem; line-height: 1.4;">Toggling indexing parameters to invisible immediately drops items out from active user queries on the storefront engine.</p>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="d-flex align-items-center justify-content-md-end gap-2">
+                                    <label class="form-label small fw-bold text-dark mb-0 me-1">System Index Visibility:</label>
+                                    <select id="edit_IsApproved" name="IsApproved" class="form-select rounded-3 small fw-bold tracking-tight shadow-sm" style="width: auto; min-width: 160px; font-size: 0.85rem; padding-top: 0.45rem; padding-bottom: 0.45rem;">
+                                        <option value="true" class="text-success fw-semibold">🟢 Active Catalog</option>
+                                        <option value="false" class="text-warning fw-semibold">自动 Suspended Mode</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- MODAL BUTTON CONTROL DECK ACTIONS -->
+                <div class="modal-footer p-3 bg-light border-0 d-flex justify-content-end gap-2">
+                    <button type="button" class="btn btn-light px-4 py-2 rounded-pill fw-semibold border shadow-none text-secondary transition-all" data-bs-dismiss="modal" style="font-size: 0.825rem;">Discard Matrix</button>
+                    <button type="submit" class="btn btn-coop-save px-4 py-2 rounded-pill fw-bold shadow-sm transition-all hover-translate-up" style="font-size: 0.825rem;">
+                        <i class="bi bi-cloud-arrow-up-fill me-1"></i> Commit Modifications
+                    </button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<script>
+        /**
+         * Main Data Mapper Row Controller - Called when clicking row data anchor actions
+         * @@param { HTMLElement } buttonElement - Target element embedding row data context markers
+        */
+    function openEditProductModal(buttonElement) {
+        const data = buttonElement.dataset;
+
+        document.getElementById('edit_Id').value = data.id;
+        document.getElementById('edit_Name').value = data.name;
+        document.getElementById('edit_Price').value = data.price;
+        document.getElementById('edit_Category').value = data.category;
+        document.getElementById('edit_ProductType').value = data.type;
+        document.getElementById('edit_ProductCode').value = data.code;
+        document.getElementById('edit_Description').value = data.desc;
+        document.getElementById('edit_IsApproved').value = data.approved;
+
+        // Strip previous dynamic local upload state parameters
+        document.getElementById('edit_ImageFile').value = "";
+
+        // Route existing hosting path into image render layer system safely
+        setEditModalExistingImage(data.img);
+
+        // Standard dynamic bootstrap engine reveal hook invocation
+        const editModalEl = document.getElementById('editProductModal');
+        const modalInstance = bootstrap.Modal.getInstance(editModalEl) || new bootstrap.Modal(editModalEl);
+        modalInstance.show();
+    }
+
+    /**
+     * Local client-side FileReader pipeline routine for incoming byte streams
+     */
+    function previewEditImage(input) {
+        const img = document.getElementById('edit_PreviewImg');
+        const placeholder = document.getElementById('edit_PreviewPlaceholder');
+
+        if (input.files && input.files[0]) {
+            const reader = new FileReader();
+
+            reader.onload = function (e) {
+                img.src = e.target.result;
+                img.classList.remove('d-none');
+                placeholder.classList.add('d-none');
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        } else {
+            resetEditModalThumbnail();
+        }
+    }
+
+    function handleEditPreviewError() {
+        resetEditModalThumbnail();
+    }
+
+    function resetEditModalThumbnail() {
+        const img = document.getElementById('edit_PreviewImg');
+        const placeholder = document.getElementById('edit_PreviewPlaceholder');
+        img.src = '';
+        img.classList.add('d-none');
+        placeholder.classList.remove('d-none');
+    }
+
+    /**
+     * Maps existing asset directory references straight onto preview display modules
+     */
+    function setEditModalExistingImage(existingImageUrl) {
+        const img = document.getElementById('edit_PreviewImg');
+        const placeholder = document.getElementById('edit_PreviewPlaceholder');
+
+        if (existingImageUrl && existingImageUrl.trim() !== '' && existingImageUrl !== 'null') {
+            img.src = existingImageUrl;
+            img.classList.remove('d-none');
+            placeholder.classList.add('d-none');
+        } else {
+            resetEditModalThumbnail();
+        }
+    }
+</script>
+
+<style>
+    /* Premium Thematic Overrides and Token Classes */
+    :root {
+        --coop-gold: #B59410;
+        --coop-gold-hover: #91750A;
+        --coop-dark: #0F172A;
+    }
+
+    #editProductModal .form-control,
+    #editProductModal .form-select,
+    #editProductModal .input-group-text {
+        font-size: 0.875rem;
+        padding-top: 0.6rem;
+        padding-bottom: 0.6rem;
+        border-color: rgba(15, 23, 42, 0.12);
+        background-color: #ffffff;
+        transition: all 0.15s ease-in-out;
+    }
+
+        #editProductModal .form-control:focus,
+        #editProductModal .form-select:focus {
+            border-color: var(--coop-gold);
+            box-shadow: 0 0 0 4px rgba(181, 148, 16, 0.12);
+            color: var(--coop-dark);
+        }
+
+    #editProductModal .input-group:focus-within .input-group-text {
+        border-color: var(--coop-gold);
+        color: var(--coop-gold) !important;
+    }
+
+    #editProductModal textarea.form-control {
+        resize: none;
+        line-height: 1.5;
+    }
+
+    .btn-coop-save {
+        background: linear-gradient(135deg, #C5A422 0%, #91750A 100%);
+        color: #FFFFFF !important;
+        border: none;
+    }
+
+        .btn-coop-save:hover {
+            background: linear-gradient(135deg, #D6B533 0%, #A28413 100%);
+        }
+
+    .transition-all {
+        transition: all 0.2s ease-in-out !important;
+    }
+
+    .hover-translate-up {
+        transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+        .hover-translate-up:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(181, 148, 16, 0.25) !important;
+        }
+</style>

@@ -1,0 +1,145 @@
+﻿@{
+    ViewData["Title"] = "Our Projects";
+}
+
+<style>
+    .project-hero {
+        background: #0b1f3a;
+        color: white;
+        padding: 80px 0;
+    }
+
+    .project-card {
+        border-radius: 20px;
+        overflow: hidden;
+        border: none;
+        background: #fff;
+        transition: 0.4s;
+    }
+
+        .project-card:hover {
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+    .video-container {
+        border-radius: 15px;
+        overflow: hidden;
+        background: #000;
+    }
+
+    .badge-scope {
+        background: #f4c542;
+        color: #000;
+        font-weight: bold;
+        padding: 5px 12px;
+        border-radius: 50px;
+        font-size: 0.8rem;
+    }
+</style>
+
+<!-- HEADER -->
+<div class="project-hero text-center">
+    <div class="container">
+        <h1 class="display-3 fw-bold">Project Showcase</h1>
+        <p class="lead text-white-50">Precision engineering and innovation delivered across Zambia.</p>
+    </div>
+</div>
+
+<!-- PROJECTS GALLERY -->
+<div class="py-5">
+    <div class="container">
+
+        <!-- Project Item 1 -->
+        <section class="project-card shadow-sm p-4 mb-5">
+            <div class="row align-items-center g-5">
+                <div class="col-lg-6">
+                    <span class="badge-scope">Solar Energy</span>
+                    <h2 class="fw-bold mt-2">Residential Hybrid Solar System</h2>
+                    <p class="text-muted fs-5">A high-efficiency hybrid installation featuring smart inverter management and long-cycle battery storage for uninterrupted power in Lusaka.</p>
+                    <hr>
+                    <p class="mb-0"><i class="fa fa-map-marker-alt text-warning me-2"></i><strong>Location:</strong> Lusaka, Zambia</p>
+                </div>
+                <div class="col-lg-6">
+                    <div class="ratio ratio-16x9 video-container shadow">
+                        <iframe src="https://www.youtube.com/embed/tuCX6K5AeCE?" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Project Item 2 -->
+        <section class="project-card shadow-sm p-4 mb-5">
+            <div class="row align-items-center g-5">
+                <div class="col-lg-6 order-lg-2">
+                    <span class="badge-scope">Electrical Engineering</span>
+                    <h2 class="fw-bold mt-2">Commercial Electrical Infrastructure</h2>
+                    <p class="text-muted fs-5">Comprehensive industrial wiring, distribution board commissioning, and safety compliance hardening for a modern commercial facility.</p>
+                    <hr>
+                    <p class="mb-0"><i class="fa fa-map-marker-alt text-warning me-2"></i><strong>Scope:</strong> Full Facility Electrification</p>
+                </div>
+                <div class="col-lg-6 order-lg-1">
+                    <div class="ratio ratio-16x9 video-container shadow">
+                        <iframe src="https://www.youtube.com/embed/VIDEO_ID_2" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Project Item 3 -->
+        <section class="project-card shadow-sm p-4 mb-5">
+            <div class="row align-items-center g-5">
+                <div class="col-lg-6">
+                    <span class="badge-scope">ICT Infrastructure</span>
+                    <h2 class="fw-bold mt-2">Enterprise Network Architecture</h2>
+                    <p class="text-muted fs-5">Structured cabling and high-speed network backbone design to support scalable digital workflows for corporate offices.</p>
+                    <hr>
+                    <p class="mb-0"><i class="fa fa-check-circle text-warning me-2"></i><strong>Status:</strong> Commissioned & Operational</p>
+                </div>
+                <div class="col-lg-6">
+                    <div class="ratio ratio-16x9 video-container shadow">
+                        <iframe src="https://www.youtube.com/embed/VIDEO_ID_3" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SOFTWARE DEVELOPMENT PROJECT -->
+        <section class="project-card shadow-sm p-4 mb-5">
+            <div class="row align-items-center g-5">
+                <div class="col-lg-6">
+                    <!-- Distinct styling for ICT projects -->
+                    <span class="badge-scope">Software Development</span>
+                    <h2 class="fw-bold mt-2">Enterprise Management Platform</h2>
+                    <p class="text-muted fs-5">
+                        A custom-built cooperative management system utilizing ASP.NET Core and PostgreSQL.
+                        This platform features automated financial reporting, loan tracking, and real-time
+                        data visualization.
+                    </p>
+                    <hr>
+                    <div class="d-flex align-items-center">
+                        <p class="mb-0 me-4"><i class="fa fa-cogs text-warning me-2"></i><strong>Stack:</strong> C#, ASP.NET, PostgreSQL</p>
+                        <p class="mb-0"><i class="fa fa-check-circle text-warning me-2"></i><strong>Status:</strong> Live</p>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="ratio ratio-16x9 video-container shadow">
+                        <!-- Replace VIDEO_ID_4 with your specific YouTube ID -->
+                        <iframe src="https://www.youtube.com/embed/ICKgJZybbrk"
+                                title="Software Development Showcase"
+                                allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+</div>
+
+<!-- CALL TO ACTION -->
+<section class="py-5 bg-light text-center">
+    <div class="container py-4">
+        <h2 class="fw-bold">Ready to start your project?</h2>
+        <p class="lead text-muted mb-4">Let’s engineer your next success story.</p>
+        <a href="/Home/Contact" class="btn btn-yellow btn-lg px-5">Start Your Project</a>
+    </div>
+</section>

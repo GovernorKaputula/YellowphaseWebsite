@@ -1,0 +1,400 @@
+﻿@model YellowphaseWebsite.Models.ViewModels.SolarPackagesViewModel
+
+@{
+    ViewData["Title"] = "Premium Solar Architectures";
+}
+
+<div class="position-relative overflow-hidden py-5 d-flex align-items-center"
+     style="background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)), url('/Images/solarpackages.jpg') no-repeat center center; background-size: cover; min-height: 550px;">
+
+    <div class="position-absolute top-0 start-0 w-100 h-100 opacity-2"
+         style="background-image: linear-gradient(rgba(255, 255, 255, 0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.15) 1px, transparent 1px); background-size: 30px 30px; pointer-events: none; mix-blend-mode: overlay; z-index: 1;">
+    </div>
+
+    <div class="position-absolute top-50 start-0 translate-middle opacity-25 pointer-events-none"
+         style="width: 600px; height: 600px; background: radial-gradient(circle, var(--bs-primary) 0%, transparent 70%); filter: blur(50px); z-index: 1;"></div>
+
+    <div class="container position-relative z-3">
+        <div class="row align-items-center">
+            <div class="col-lg-8 col-12 text-center text-lg-start">
+
+                <span class="badge bg-primary px-3 py-2 rounded-pill mb-3 text-uppercase tracking-wider fw-bold text-white shadow-sm"
+                      style="letter-spacing: 2px; border: 1px solid rgba(255,255,255,0.2); background: linear-gradient(135deg, #FFB300 0%, #E6A100 100%) !important; color: #0B1316 !important;">
+                    Next-Gen Clean Energy
+                </span>
+
+                <h1 class="display-3 fw-black mb-3 lh-sm" style="text-shadow: 0 4px 12px rgba(0,0,0,0.6); font-size: calc(1.6rem + 2.5vw); color: #ffffff !important;">
+                    Powering Tomorrow, <br>
+                    <span class="fw-black" style="color: #ffffff !important;">
+                        Sustainably Today.
+                    </span>
+                </h1>
+
+                <p class="lead fw-medium fs-4 mb-4" style="color: #e2e8f0; text-shadow: 0 2px 6px rgba(0,0,0,0.6); max-w-xl;">
+                    Explore our state-of-the-art residential and commercial solar architectures designed for maximum efficiency and lifetime durability.
+                </p>
+
+                <div class="d-flex flex-wrap justify-content-center justify-content-lg-start gap-3">
+                    <a href="#energy-catalog" class="btn btn-primary btn-lg px-4 py-3 rounded-3 fw-bold shadow text-white">Explore Solutions Portfolio</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="energy-catalog" class="bg-white border-bottom sticky-top shadow-sm sub-nav-sticky">
+    <div class="container py-3">
+        <div class="d-flex flex-column flex-md-row align-items-center justify-content-between gap-3">
+            <div class="text-center text-md-start">
+                <h2 class="fs-5 fw-bold text-dark m-0">Available Infrastructure</h2>
+                <p class="text-muted small m-0 d-none d-md-block">Select an operational archetype to explore system profiles</p>
+            </div>
+            <ul class="nav nav-pills gap-2 border-0" id="solarTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active px-4 py-2 rounded-pill fw-bold text-uppercase tracking-wide transition-all"
+                            id="residential-tab" data-bs-toggle="tab" data-bs-target="#residential-pane" type="button" role="tab" aria-controls="residential-pane" aria-selected="true">
+                        <i class="bi bi-house-door me-2"></i>Residential Arrays
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link px-4 py-2 rounded-pill fw-bold text-uppercase tracking-wide transition-all"
+                            id="commercial-tab" data-bs-toggle="tab" data-bs-target="#commercial-pane" type="button" role="tab" aria-controls="commercial-pane" aria-selected="false">
+                        <i class="bi bi-building me-2"></i>Commercial & Industrial
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="position-relative overflow-hidden py-5 bg-light-subtle">
+
+    <div class="position-absolute top-0 start-0 w-100 h-100 opacity-5"
+         style="background-image: linear-gradient(#070f12 1px, transparent 1px), linear-gradient(90deg, #070f12 1px, transparent 1px); background-size: 30px 30px; pointer-events: none; mix-blend-mode: overlay; z-index: 1;">
+    </div>
+
+    <div class="container position-relative z-3">
+        <div class="tab-content" id="solarTabContent">
+
+            <div class="tab-pane fade show active" id="residential-pane" role="tabpanel" aria-labelledby="residential-tab">
+                <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                    @foreach (var package in Model.ResidentialPackages)
+                    {
+                        var product = package.Product;
+                        var imageUrls = package.Images;
+                        var carouselId = $"carouselRes_{product.Id}";
+
+                        <div class="col">
+                            <div class="card h-100 border border-0 shadow-hover rounded-4 overflow-hidden bg-white transition-all position-relative" style="box-shadow: 0 10px 30px rgba(0,0,0,0.04) !important;">
+
+                                <div id="@carouselId" class="carousel slide carousel-dark bg-light portrait-slider-frame" data-bs-ride="false">
+                                    @if (imageUrls.Count > 1)
+                                    {
+                                        <div class="carousel-indicators mb-2">
+                                            @for (int i = 0; i < imageUrls.Count; i++)
+                                            {
+                                                <button type="button" data-bs-target="#@carouselId" data-bs-slide-to="@i" class="@(i == 0 ? "active" : "")" aria-current="@(i == 0 ? "true" : "false")"></button>
+                                            }
+                                        </div>
+                                    }
+
+                                    <div class="carousel-inner h-100">
+                                        @for (int idx = 0; idx < imageUrls.Count; idx++)
+                                        {
+                                            <div class="carousel-item h-100 @(idx == 0 ? "active" : "")">
+                                                <img src="@imageUrls[idx]" class="w-100 h-100 object-fit-cover image-scale transition-all" alt="@product.Name - View @(idx + 1)" />
+                                            </div>
+                                        }
+                                    </div>
+
+                                    @if (imageUrls.Count > 1)
+                                    {
+                                        <button class="carousel-control-prev custom-carousel-btn ms-2" type="button" data-bs-target="#@carouselId" data-bs-slide="prev">
+                                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                            <span class="visually-hidden">Previous</span>
+                                        </button>
+                                        <button class="carousel-control-next custom-carousel-btn me-2" type="button" data-bs-target="#@carouselId" data-bs-slide="next">
+                                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                            <span class="visually-hidden">Next</span>
+                                        </button>
+                                    }
+
+                                    <div class="position-absolute top-0 start-0 p-3 z-3">
+                                        <span class="badge bg-dark bg-opacity-75 text-white backdrop-blur px-3 py-2 rounded-pill font-monospace shadow-sm">
+                                            @product.ProductCode
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="card-body p-4 d-flex flex-column bg-white">
+                                    <h3 class="h4 text-dark fw-bold mb-3">@product.Name</h3>
+
+                                    <div class="specs-grid mb-4">
+                                        <div class="spec-item p-3 rounded-3 bg-light border-start border-3 border-primary mb-3">
+                                            <div class="text-muted small fw-semibold text-uppercase tracking-wider mb-1">Configuration Matrix</div>
+                                            <div class="text-dark fw-semibold small"><i class="bi bi-cpu-fill text-primary me-2"></i>@product.Description</div>
+                                        </div>
+
+                                        <button class="btn btn-light border w-100 text-start py-2 px-3 rounded-3 d-flex align-items-center justify-content-between shadow-xs transition-all"
+                                                type="button" onclick="openRoiCalculator('@product.Name', @(product.Price > 0 ? product.Price : 45000))">
+                                            <span class="small text-muted fw-medium"><i class="bi bi-calculator text-secondary me-2"></i>Check Estimated Payback Run</span>
+                                            <i class="bi bi-chevron-right small text-muted"></i>
+                                        </button>
+                                    </div>
+
+                                    <div class="mt-auto pt-3 border-top">
+                                        <div class="d-flex align-items-center justify-content-between mb-3">
+                                            <span class="text-muted fw-medium small">Investment Basis:</span>
+                                            <div class="text-end">
+                                                @if (product.Price > 0)
+                                                {
+                                                    <span class="h3 fw-black text-success m-0">K@(product.Price.ToString("N0"))</span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="h5 fw-bold text-dark m-0">Quote Upon Survey</span>
+                                                }
+                                            </div>
+                                        </div>
+
+                                        <div class="row g-2">
+                                            <div class="col-4">
+                                                <a asp-controller="Products" asp-action="Details" asp-route-id="@product.Id" class="btn btn-outline-dark w-100 py-25 rounded-3 fw-semibold small">Details</a>
+                                            </div>
+                                            <div class="col-8">
+                                                <a href="/Checkout?productId=@product.Id"
+                                                   class="btn d-flex align-items-center justify-content-center gap-2 rounded-3 px-3 py-2 fw-semibold"
+                                                   style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+                                                    border: none;
+                                                    color: white;
+                                                    font-size: 0.88rem;
+                                                    box-shadow: 0 6px 18px rgba(245, 158, 11, 0.25);
+                                                    text-decoration: none;">
+                                                    <i class="bi bi-cart-fill"></i>
+                                                    Buy Now
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="commercial-pane" role="tabpanel" aria-labelledby="commercial-tab">
+                <div class="vstack gap-4">
+                    @foreach (var package in Model.CommercialPackages)
+                    {
+                        var product = package.Product;
+                        var imageUrls = package.Images;
+                        var carouselId = $"carouselCom_{product.Id}";
+
+                        <div class="card border border-0 shadow-hover rounded-4 overflow-hidden bg-white transition-all" style="box-shadow: 0 10px 30px rgba(0,0,0,0.04) !important;">
+                            <div class="row g-0 align-items-center">
+
+                                <div class="col-lg-4 position-relative d-flex flex-column justify-content-center row-portrait-frame">
+                                    <div id="@carouselId" class="carousel slide carousel-dark h-100 w-100 d-flex flex-column justify-content-center" data-bs-ride="false">
+
+                                        @if (imageUrls.Count > 1)
+                                        {
+                                            <div class="carousel-indicators mb-3">
+                                                @for (int i = 0; i < imageUrls.Count; i++)
+                                                {
+                                                    <button type="button" data-bs-target="#@carouselId" data-bs-slide-to="@i" class="@(i == 0 ? "active" : "")" aria-current="@(i == 0 ? "true" : "false")"></button>
+                                                }
+                                            </div>
+                                        }
+
+                                        <div class="carousel-inner h-100 w-100">
+                                            @for (int idx = 0; idx < imageUrls.Count; idx++)
+                                            {
+                                                <div class="carousel-item h-100 w-100 @(idx == 0 ? "active" : "")">
+                                                    <img src="@imageUrls[idx]" class="w-100 h-100 object-fit-cover image-scale transition-all" alt="@product.Name - View @(idx + 1)" />
+                                                </div>
+                                            }
+                                        </div>
+
+                                        @if (imageUrls.Count > 1)
+                                        {
+                                            <button class="carousel-control-prev custom-carousel-btn ms-2" type="button" data-bs-target="#@carouselId" data-bs-slide="prev">
+                                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                                <span class="visually-hidden">Previous</span>
+                                            </button>
+                                            <button class="carousel-control-next custom-carousel-btn me-2" type="button" data-bs-target="#@carouselId" data-bs-slide="next">
+                                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                                <span class="visually-hidden">Next</span>
+                                            </button>
+                                        }
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-8 p-4 p-xl-5 d-flex flex-column justify-content-between">
+                                    <div>
+                                        <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-3">
+                                            <div class="d-flex align-items-center gap-2">
+                                                <span class="badge bg-secondary text-white px-2.5 py-1.5 rounded-pill fw-bold shadow-sm font-monospace">
+                                                    @product.ProductCode
+                                                </span>
+                                                <h3 class="fw-black text-dark h4 m-0">@product.Name</h3>
+                                            </div>
+                                            <span class="badge bg-secondary-subtle text-secondary border border-secondary border-opacity-25 px-3 py-1 rounded-pill fw-semibold small">C&I Utility Architecture</span>
+                                        </div>
+                                        <p class="text-muted mb-4">Engineered to buffer peak commercial electrical demand profiles and guarantee continuous industrial operational runtimes.</p>
+
+                                        <div class="row g-3 mb-4">
+                                            <div class="col-md-6">
+                                                <div class="p-3 rounded-3 bg-light border-start border-3 border-secondary h-100">
+                                                    <div class="text-muted small fw-bold text-uppercase tracking-wider">Array Matrix</div>
+                                                    <div class="text-dark fw-medium small mt-1">@product.Description</div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="p-3 rounded-3 bg-light border-start border-3 border-dark h-100">
+                                                    <div class="text-muted small fw-bold text-uppercase tracking-wider">Grid Synchronization</div>
+                                                    <div class="text-dark fw-medium small mt-1">Three-Phase Smart Grid Matching Ready</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="pt-4 border-top d-flex align-items-center justify-content-between flex-wrap gap-3">
+                                        <div>
+                                            <div class="text-muted small fw-bold text-uppercase tracking-wider">Pricing Configuration</div>
+                                            <div class="fs-5 fw-black text-dark mt-1"><i class="bi bi-calculator me-2 text-secondary"></i>Engineering Assessment Required</div>
+                                        </div>
+                                        <div class="d-flex gap-2 min-w-md-250">
+                                            <a asp-controller="Products" asp-action="Details" asp-route-id="@product.Id" class="btn btn-outline-secondary px-4 py-25 rounded-3 fw-semibold">Technical Profile</a>
+                                            <a asp-controller="Home" asp-action="Contact" asp-route-id="@product.Id" class="btn btn-secondary px-4 py-25 rounded-3 fw-bold text-white shadow-sm">Request Proposal</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="bg-dark text-white py-5 position-relative overflow-hidden" style="background: radial-gradient(circle at right, #17303a 0%, #070f12 60%);">
+
+    <div class="position-absolute top-0 start-0 w-100 h-100 opacity-5"
+         style="background-image: linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px); background-size: 30px 30px; pointer-events: none; mix-blend-mode: overlay; z-index: 1;">
+    </div>
+
+    <div class="container position-relative z-2 py-4">
+        <div class="row align-items-center justify-content-between">
+            <div class="col-lg-8 text-center text-lg-start mb-4 mb-lg-0">
+                <h3 class="fw-black mb-2 fs-2">Need a custom localized microgrid framework?</h3>
+                <p class="text-white-50 m-0 fs-5 max-w-2xl font-light">Our engineering desk conducts geographic solar mapping, localized load profiles, and peak-shaving simulations to generate optimized deployment architecture.</p>
+            </div>
+            <div class="col-lg-3 text-center text-lg-end">
+                <a asp-controller="Home" asp-action="Contact" class="btn btn-primary btn-lg px-4 py-3 rounded-3 fw-bold border-0 text-white shadow-sm">Initiate Infrastructure Audit</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="roiCalcModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden">
+            <div class="modal-header bg-dark text-white p-4 border-0">
+                <div>
+                    <h5 class="modal-title fw-bold m-0" id="roiPackageName">Solar System Valuation</h5>
+                    <p class="text-white-50 small m-0 mt-1">Estimate approximate capital performance payback matrix</p>
+                </div>
+                <button type="button" class="btn-close btn-close-white shadow-none" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-4 bg-light">
+                <div class="mb-4">
+                    <label class="form-label small fw-bold text-uppercase text-muted">Average Monthly ZESCO Expense (Kwacha)</label>
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-text bg-white border-end-0 fw-bold text-muted">K</span>
+                        <input type="number" id="monthlyBillInput" class="form-control bg-white border-start-0 shadow-none fw-bold text-dark" value="3500" min="100">
+                    </div>
+                </div>
+
+                <div class="p-3 rounded-3 bg-white border border-light shadow-xs mb-2">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <span class="small text-muted fw-semibold">Estimated System Cost:</span>
+                        <span id="roiSystemCostText" class="fw-bold text-dark">K0</span>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center border-top pt-2">
+                        <span class="small text-muted fw-black text-uppercase tracking-wide">Projected Payback Window:</span>
+                        <span id="roiPaybackResult" class="fs-4 fw-black text-success">-- Years</span>
+                    </div>
+                </div>
+                <p class="text-muted" style="font-size:0.75rem;"><i class="bi bi-info-circle me-1"></i> Values are calculated based on basic offset indices. True metrics demand architectural mapping by an energy representative.</p>
+            </div>
+            <div class="modal-footer p-3 bg-white border-0">
+                <button type="button" class="btn btn-dark w-100 py-2.5 rounded-3 fw-bold" data-bs-dismiss="modal">Close Assessment</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    :root {
+        --yp-gold: #FFB300;
+        --yp-blue: #00A8E8;
+        --yp-dark: #0B1316;
+        --header-height-offset: 120px;
+    }
+
+    .fw-black {
+        font-weight: 900 !important;
+    }
+
+    .py-25 {
+        padding-top: 0.7rem !important;
+        padding-bottom: 0.7rem !important;
+    }
+
+    .backdrop-blur {
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+    }
+
+    .shadow-xs {
+        box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+    }
+
+    .min-w-md-250 {
+        min-width: 280px;
+    }
+
+    .max-w-2xl {
+        max-width: 44rem;
+    }
+
+    .btn-primary {
+        background: linear-gradient(135deg, var(--yp-gold) 0%, #E6A100 100%) !important;
+        border: none !important;
+        color: var(--yp-dark) !important;
+        font-weight: 700 !important;
+    }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #E6A100 0%, #CC8F00 100%) !important;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(255, 179, 0, 0.3) !important;
+        }
+
+    .btn-secondary {
+        background: linear-gradient(135deg, var(--yp-blue) 0%, #0086B8 100%) !important;
+        border: none !important;
+        color: white !important;
+    }
+
+        .btn-secondary:hover {
+            background: linear-gradient(135deg, #0086B8 0%, #006991 100%) !important;
+            transform: translateY(-2px);
+        }
+</style>

@@ -1,0 +1,1 @@
+Inspecting Views/Products/Index.cshtml and Controllers/ProductsController.cs for currency conversion issue. Will open files next.

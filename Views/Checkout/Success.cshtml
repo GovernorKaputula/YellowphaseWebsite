@@ -1,0 +1,125 @@
+﻿@{
+    ViewData["Title"] = "Order Confirmed";
+}
+
+<div class="container py-5 my-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6 text-center">
+
+            <div class="mb-4 d-inline-flex align-items-center justify-content-center bg-success bg-opacity-10 rounded-circle text-success shadow-sm animate-pulse" style="width: 80px; height: 80px;">
+                <i class="bi bi-check-circle-fill" style="font-size: 3rem;"></i>
+            </div>
+
+            <h2 class="fw-extrabold tracking-tight mb-2 text-dark" style="font-size: 2.25rem; color: #0b1f3a;">Order Confirmed!</h2>
+            <p class="text-secondary mb-4 mx-auto" style="max-width: 480px; font-size: 1rem; line-height: 1.6;">
+                Thank you for your purchase. Your transaction data has been securely processed and recorded into the YellowPhase ledger system.
+            </p>
+
+            <div class="card border-0 rounded-4 shadow-sm p-4 bg-white text-start mb-4.5 mx-auto" style="max-width: 500px;">
+                <span class="d-block text-uppercase tracking-wider fw-bold text-secondary mb-3 font-monospace" style="font-size: 0.725rem; letter-spacing: 0.06em;">Next Steps & Execution</span>
+
+                <div class="d-flex gap-3 mb-3">
+                    <div class="font-monospace fw-bold text-warning" style="font-size: 0.9rem;">01</div>
+                    <div>
+                        <h6 class="fw-bold mb-0.5 text-dark" style="font-size: 0.9rem;">Invoice & Receipt Delivery</h6>
+                        <p class="text-muted small mb-0">A digital copy of your receipt and item breakdown is being compiled and sent to your email address.</p>
+                    </div>
+                </div>
+
+                <div class="d-flex gap-3 mb-3">
+                    <div class="font-monospace fw-bold text-warning" style="font-size: 0.9rem;">02</div>
+                    <div>
+                        <h6 class="fw-bold mb-0.5 text-dark" style="font-size: 0.9rem;">Asset Configuration Allocation</h6>
+                        <p class="text-muted small mb-0">Our deployment engineers are logging your technical parameters into the active network registry.</p>
+                    </div>
+                </div>
+
+                <div class="d-flex gap-3">
+                    <div class="font-monospace fw-bold text-warning" style="font-size: 0.9rem;">03</div>
+                    <div>
+                        <h6 class="fw-bold mb-0.5 text-dark" style="font-size: 0.9rem;">Direct Operations Contact</h6>
+                        <p class="text-muted small mb-0">A YellowPhase communications manager will contact you directly via phone or email shortly to confirm deployment timelines.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="d-flex flex-column flex-sm-row align-items-center justify-content-center gap-2.5 mx-auto" style="max-width: 500px;">
+                <a asp-controller="Home" asp-action="Index" class="btn btn-dark px-4 py-2.5 rounded-3 fw-bold tracking-wide shadow-sm transition-all hover-translate-up w-100 w-sm-auto">
+                    <i class="bi bi-house-door me-1.5"></i> Return to Homepage
+                </a>
+                <button onclick="window.print()" class="btn btn-light px-4 py-2.5 rounded-3 fw-bold border shadow-sm transition-all text-secondary w-100 w-sm-auto">
+                    <i class="bi bi-printer me-1.5"></i> Print Order Copy
+                </button>
+            </div>
+
+            <p class="text-muted mt-4.5 small mb-0">
+                Need immediate engineering clarification? Contact technical infrastructure dispatch at <span class="fw-bold text-dark font-monospace">support@yellowphase.com</span>
+            </p>
+
+        </div>
+    </div>
+</div>
+
+<style>
+    .tracking-wider {
+        letter-spacing: 0.06em;
+    }
+
+    .tracking-tight {
+        letter-spacing: -0.02em;
+    }
+
+    .mb-0.5 {
+        margin-bottom: 0.15rem !important;
+    }
+
+    .mb-4.5 {
+        margin-bottom: 2.25rem !important;
+    }
+
+    .mt-4.5 {
+        margin-top: 2.25rem !important;
+    }
+
+    .gap-2.5 {
+        gap: 0.65rem !important;
+    }
+
+    /* SIMPLE TRANSITION HOOKS */
+    .transition-all {
+        transition: all 0.2s ease-in-out !important;
+    }
+
+    .hover-translate-up:hover {
+        transform: translateY(-1.5px);
+        box-shadow: 0 4px 12px rgba(11, 31, 58, 0.12) !important;
+    }
+
+    /* SMOOTH INTRO PULSE ANIMATION FOR SUCCESS MARK */
+    @@keyframes pulseGlow {
+        0% {
+            transform: scale(0.96);
+            opacity: 0.9;
+        }
+
+        50% {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        100% {
+            transform: scale(0.96);
+            opacity: 0.9;
+        }
+    }
+
+    .animate-pulse {
+        animation: pulseGlow 3s ease-in-out infinite;
+    }
+
+    @@media (min-width: 576px) {
+        .w-sm-auto {
+            width: auto !important;
+        }
+    }
+</style>

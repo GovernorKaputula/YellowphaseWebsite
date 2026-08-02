@@ -1,0 +1,346 @@
+﻿@model YellowphaseWebsite.Models.ViewModels.CheckoutViewModel
+@using System.Globalization
+
+@{
+    ViewData["Title"] = "Checkout";
+}
+
+<div class="container py-5 mt-2">
+    <div class="row mb-4">
+        <div class="col-12">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-2 text-uppercase tracking-wider font-monospace" style="font-size: 0.75rem;">
+                    <li class="breadcrumb-item"><a href="/" class="text-decoration-none text-muted">Shop</a></li>
+                    <li class="breadcrumb-item text-dark fw-bold active" aria-current="page">Checkout</li>
+                </ol>
+            </nav>
+            <h2 class="fw-extrabold tracking-tight mb-1" style="color: #0b1f3a; font-size: 1.85rem;">Review &amp; Complete Your Order</h2>
+            <p class="text-muted small mb-0">Please fill in your details below to finish your purchase.</p>
+        </div>
+    </div>
+
+    <form asp-action="Index" method="post" id="checkoutForm">
+        <input asp-for="ItemName" type="hidden" />
+        <input asp-for="ItemType" type="hidden" />
+        <input asp-for="Amount" id="hiddenUnitAmount" type="hidden" />
+        <input asp-for="ProductId" type="hidden" />
+        <input asp-for="Quantity" id="hiddenFormQuantity" type="hidden" />
+
+        <div class="row g-4">
+            <div class="col-lg-7">
+                <div class="card border-0 rounded-4 shadow-sm p-4 bg-white mb-4">
+
+                    <div class="mb-4">
+                        <span class="d-block text-uppercase tracking-wider fw-bold text-secondary mb-3" style="font-size: 0.725rem; letter-spacing: 0.06em;">01. Your Details</span>
+
+                        <div class="row g-3">
+                            <div class="col-12">
+                                <label asp-for="CustomerName" class="form-label small fw-bold text-dark mb-1">Full Name</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-white border-end-0 text-muted"><i class="bi bi-person"></i></span>
+                                    <input asp-for="CustomerName" class="form-control rounded-end-3 ps-2" placeholder="e.g. John Phiri" required />
+                                </div>
+                                <span asp-validation-for="CustomerName" class="text-danger small mt-1 d-block font-monospace"></span>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label asp-for="Email" class="form-label small fw-bold text-dark mb-1">Email Address</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-white border-end-0 text-muted"><i class="bi bi-envelope"></i></span>
+                                    <input asp-for="Email" type="email" class="form-control rounded-end-3 ps-2" placeholder="name@email.com" required />
+                                </div>
+                                <span asp-validation-for="Email" class="text-danger small mt-1 d-block font-monospace"></span>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label asp-for="PhoneNumber" class="form-label small fw-bold text-dark mb-1">Phone Number</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-white border-end-0 text-muted"><i class="bi bi-telephone"></i></span>
+                                    <input asp-for="PhoneNumber" type="tel" class="form-control rounded-end-3 ps-2" placeholder="e.g. 0962227741" />
+                                </div>
+                                <span asp-validation-for="PhoneNumber" class="text-danger small mt-1 d-block font-monospace"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr class="text-muted my-4" style="opacity: 0.15;" />
+
+                    <div class="mb-2">
+                        <span class="d-block text-uppercase tracking-wider fw-bold text-secondary mb-3" style="font-size: 0.725rem; letter-spacing: 0.06em;">02. Additional Information</span>
+
+                        <div class="row g-3">
+                            <div class="col-12">
+                                <label asp-for="CompanyName" class="form-label small fw-bold text-dark mb-1">Company Name <span class="text-muted fw-normal fst-italic">(Optional)</span></label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-white border-end-0 text-muted"><i class="bi bi-building"></i></span>
+                                    <input asp-for="CompanyName" class="form-control rounded-end-3 ps-2" placeholder="e.g. YellowPhase Logistics" />
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <label asp-for="Notes" class="form-label small fw-bold text-dark mb-1">Order Notes <span class="text-muted fw-normal fst-italic">(Optional)</span></label>
+                                <textarea asp-for="Notes" rows="3" class="form-control rounded-3 p-3 text-dark small" placeholder="Add any special delivery instructions or notes here..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-lg-5 position-relative">
+                <div class="sticky-lg-top" style="top: 2rem; z-index: 10;">
+                    <div class="card border-0 rounded-4 shadow-sm overflow-hidden bg-white">
+
+                        <div class="p-4 bg-dark text-white d-flex align-items-center gap-3">
+                            <div class="bg-white bg-opacity-10 rounded-3 d-flex align-items-center justify-content-center text-warning" style="width: 38px; height: 38px;">
+                                <i class="bi bi-cart-check fs-5"></i>
+                            </div>
+                            <div>
+                                <h5 class="fw-extrabold tracking-tight mb-0" style="font-size: 1.05rem;">Your Order</h5>
+                                <p class="text-white-50 small mb-0" style="font-size: 0.72rem;">Please review your item details.</p>
+                            </div>
+                        </div>
+
+                        <div class="p-4">
+
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+                                <div class="pe-3">
+                                    <h6 class="fw-bold mb-1 text-dark text-break" style="font-size: 0.95rem;">
+                                        @Model.ItemName
+                                    </h6>
+
+                                    <span class="badge bg-light text-secondary border font-monospace rounded-2 text-wrap text-start"
+                                          style="font-size: 0.7rem; padding: 0.25rem 0.5rem; max-width: 100%;">
+                                        @(string.IsNullOrWhiteSpace(Model.ItemName) ? "Product" : Model.ItemName)
+                                    </span>
+                                </div>
+
+                                <span class="fw-extrabold text-dark font-monospace fs-5 text-nowrap" id="unitPriceDisplay">
+                                    @(!string.IsNullOrEmpty(Model.DisplayPrice)
+                                        ? Model.DisplayPrice
+                                        : Model.Amount.ToString("C", CultureInfo.CurrentCulture))
+                                </span>
+                            </div>
+
+                            <hr class="text-muted opacity-10 my-3" />
+
+                            <div class="mb-3">
+                                <label class="form-label small fw-bold text-dark" for="quantityInput">
+                                    Quantity
+                                </label>
+
+                                <input id="quantityInput"
+                                       type="number"
+                                       min="1"
+                                       value="@(Model.Quantity <= 0 ? 1 : Model.Quantity)"
+                                       class="form-control" />
+                            </div>
+
+                            <div class="d-flex justify-content-between align-items-center mb-2 small">
+                                <span class="text-muted">Unit Price</span>
+
+                                <span class="fw-semibold font-monospace text-secondary">
+                                    @(!string.IsNullOrEmpty(Model.DisplayPrice)
+                                        ? Model.DisplayPrice
+                                        : Model.Amount.ToString("C", CultureInfo.CurrentCulture))
+                                </span>
+                            </div>
+
+                            <div class="d-flex justify-content-between align-items-center mb-3 small">
+                                <span class="text-muted">Delivery</span>
+                                <span class="fw-semibold font-monospace text-success">FREE</span>
+                            </div>
+
+                            <div class="bg-light rounded-3 p-3 mb-4 d-flex justify-content-between align-items-center border border-light-subtle">
+                                <span class="fw-bold text-dark small text-uppercase tracking-wider">
+                                    Total
+                                </span>
+
+                                <span id="totalPrice" class="fw-black text-dark font-monospace fs-4 text-nowrap">
+                                    @* Filled Dynamically by JavaScript *@
+                                </span>
+                            </div>
+
+                            <div id="paypal-button-container" class="mb-3"></div>
+
+                            <button type="submit" class="btn btn-outline-dark w-100 py-2 rounded-3 fw-bold">
+                                Pay with Alternative Method
+                            </button>
+
+                            <div class="d-flex align-items-center justify-content-center gap-2 mt-3 text-muted" style="font-size: 0.72rem;">
+                                <i class="bi bi-shield-check text-success"></i>
+                                <span>Your connection is secure and encrypted.</span>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<style>
+    .tracking-wider {
+        letter-spacing: 0.06em;
+    }
+
+    .tracking-tight {
+        letter-spacing: -0.02em;
+    }
+
+    .fw-black {
+        font-weight: 900;
+    }
+
+    #checkoutForm .form-control,
+    #checkoutForm .input-group-text {
+        font-size: 0.875rem;
+        padding-top: 0.6rem;
+        padding-bottom: 0.6rem;
+        border-color: #cbd5e1;
+        background-color: #ffffff;
+        transition: all 0.15s ease-in-out;
+    }
+
+        #checkoutForm .form-control:focus {
+            border-color: #0b1f3a;
+            box-shadow: 0 0 0 3px rgba(11, 31, 58, 0.08);
+            color: #000000;
+        }
+
+    #checkoutForm .input-group:focus-within .input-group-text {
+        border-color: #0b1f3a;
+        color: #0b1f3a !important;
+    }
+
+    #checkoutForm textarea.form-control {
+        resize: none;
+        line-height: 1.5;
+    }
+</style>
+
+<script src="https://www.paypal.com/sdk/js?client-id=AeZxi-sKLBi-fbb2UgxZ_zi6RQGMnAUiloQbaVoH6HHDUSvcDM9lzXnI8-Uz7xTAwgudlH1f9J2Td82A&currency=@Model.Currency"></script>
+
+<script>
+    (function () {
+    // Shared parameters referencing calculations
+    const qtyInput = document.getElementById("quantityInput");
+    const hiddenFormQuantity = document.getElementById("hiddenFormQuantity");
+    const totalPriceDisplay = document.getElementById("totalPrice");
+    const unitPrice = parseFloat(document.getElementById("hiddenUnitAmount").value) || 0;
+
+    // Server-side baseline configuration
+    var serverPayload = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(new
+    {
+        currency = Model.Currency,
+        itemName = Model.ItemName,
+        productId = Model.ProductId
+    }));
+
+    // Dynamic Helper to pull runtime state calculations
+    function getCalculatedState() {
+    let qty = parseInt(qtyInput.value) || 1;
+    if (qty < 1) qty = 1;
+    return {
+    quantity: qty,
+    totalAmount: (unitPrice * qty).toFixed(2)
+    };
+    }
+
+    // Dynamic Total DOM sync update engine
+    function updateTotal() {
+    const state = getCalculatedState();
+
+    // Sync values safely with the hidden inputs bound to the ASP.NET pipeline
+    qtyInput.value = state.quantity;
+    hiddenFormQuantity.value = state.quantity;
+
+    // Visual format handling matching server parameters locale configuration
+    totalPriceDisplay.innerText = new Intl.NumberFormat('@CultureInfo.CurrentCulture.Name', {
+    style: 'currency',
+    currency: serverPayload.currency
+    }).format(state.totalAmount);
+    }
+
+    // Attach local input listener
+    qtyInput.addEventListener("input", updateTotal);
+    // Boot Initialization
+    updateTotal();
+
+    // Render PayPal ecosystem operations with live dynamically updated attributes
+    paypal.Buttons({
+    createOrder: function (data, actions) {
+    const dynamicState = getCalculatedState();
+
+    return actions.order.create({
+    purchase_units: [{
+    amount: {
+    value: dynamicState.totalAmount,
+    breakdown: {
+    item_total: {
+    currency_code: serverPayload.currency,
+    value: dynamicState.totalAmount
+    }
+    }
+    },
+    description: serverPayload.itemName,
+    items: [{
+    name: serverPayload.itemName || "Product",
+    unit_amount: {
+    currency_code: serverPayload.currency,
+    value: unitPrice.toFixed(2)
+    },
+    quantity: dynamicState.quantity.toString()
+    }]
+    }]
+    });
+    },
+
+    onApprove: function (data, actions) {
+    return actions.order.capture().then(function (details) {
+    const dynamicState = getCalculatedState();
+    var savePayload = {
+    orderId: data.orderID,
+    payerName: (details?.payer?.name?.given_name) ? details.payer.name.given_name : '',
+    payerEmail: (details?.payer?.email_address) ? details.payer.email_address : '',
+    amount: parseFloat(dynamicState.totalAmount),
+    currency: serverPayload.currency,
+    productId: serverPayload.productId,
+    quantity: dynamicState.quantity
+    };
+
+    fetch('/Checkout/ProcessPayment', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(savePayload)
+    })
+    .then(function (res) {
+    if (!res.ok) throw new Error('Network response was not ok');
+    return res.json();
+    })
+    .then(function (response) {
+    if (response && response.status === 'ok') {
+    window.location.href = '/Checkout/Success';
+    } else {
+    alert('Payment saved but failed on server.');
+    }
+    })
+    .catch(function (err) {
+    console.error(err);
+    alert('Server error while saving payment.');
+    });
+    });
+    },
+
+    onCancel: function () {
+    alert('Payment cancelled.');
+    },
+
+    onError: function (err) {
+    console.error(err);
+    alert('Payment execution failed.');
+    }
+    }).render('#paypal-button-container');
+    })();
+</script>

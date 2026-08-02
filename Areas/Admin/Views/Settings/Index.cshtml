@@ -1,0 +1,37 @@
+﻿@model List<YellowphaseWebsite.Models.AppSetting>
+
+<h2 class="mb-4">System Settings</h2>
+
+<div class="row">
+
+    @foreach (var item in Model)
+    {
+        <div class="col-md-6 mb-3">
+
+            <div class="card p-3 shadow-sm">
+
+                <label class="fw-bold">@item.Key</label>
+
+                <input class="form-control mt-2"
+                       value="@item.Value"
+                       onchange="updateSetting('@item.Key', this.value)" />
+
+            </div>
+
+        </div>
+    }
+
+</div>
+
+<script>
+    async function updateSetting(key, value) {
+
+        await fetch('/Admin/Settings/Update', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: `key=${key}&value=${value}`
+        });
+    }
+</script>

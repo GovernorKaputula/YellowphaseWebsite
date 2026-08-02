@@ -1,0 +1,264 @@
+﻿@model YellowphaseWebsite.Models.ApplicationUser
+
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "Manage User";
+}
+
+<style>
+    /* --- USER CONTROL SYSTEM ARCHITECTURE --- */
+    .user-profile-header {
+        border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+    }
+
+    .premium-form-card {
+        background: #ffffff;
+        border: 1px solid #e2e8f0 !important;
+        border-radius: 16px !important;
+        box-shadow: 0 4px 20px -2px rgba(11, 31, 58, 0.04) !important;
+        transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+        .premium-form-card .card-header {
+            border-bottom: 1px solid rgba(241, 245, 249, 0.9);
+            padding: 1.25rem 1.5rem;
+        }
+
+        .premium-form-card .card-body {
+            padding: 1.5rem;
+        }
+
+    /* Form Fields Styling Sync */
+    .form-control, .form-select {
+        border: 1px solid #cbd5e1;
+        border-radius: 8px;
+        padding: 0.6rem 0.8rem;
+        font-size: 0.92rem;
+        color: #334155;
+        transition: all 0.2s ease;
+    }
+
+        .form-control:focus, .form-select:focus {
+            border-color: #0b1f3a;
+            box-shadow: 0 0 0 3px rgba(11, 31, 58, 0.1);
+            color: #0b1f3a;
+        }
+
+    .form-label {
+        font-size: 0.82rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        color: #64748b;
+        margin-bottom: 0.4rem;
+    }
+
+    /* Core Action Buttons */
+    .btn-action-save {
+        background: #0b1f3a;
+        color: #ffffff;
+        border: none;
+        border-radius: 8px;
+        font-weight: 600;
+        padding: 0.6rem 1.2rem;
+        transition: all 0.2s ease;
+    }
+
+        .btn-action-save:hover {
+            background: #061324;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(11, 31, 58, 0.15);
+        }
+
+    .btn-action-cancel {
+        border: 1px solid #cbd5e1;
+        background: #ffffff;
+        color: #475569;
+        border-radius: 8px;
+        font-weight: 500;
+        padding: 0.6rem 1.2rem;
+        transition: all 0.2s ease;
+    }
+
+        .btn-action-cancel:hover {
+            background: #f8fafc;
+            color: #1e293b;
+        }
+
+    /* Role Badge Elements */
+    .role-badge-pill {
+        font-size: 0.8rem;
+        font-weight: 600;
+        padding: 0.4rem 0.8rem;
+        border-radius: 6px;
+        letter-spacing: 0.02em;
+        background-color: rgba(11, 31, 58, 0.08) !important;
+        color: #0b1f3a !important;
+        border: 1px solid rgba(11, 31, 58, 0.12);
+    }
+
+    .btn-role-remove {
+        font-size: 0.75rem;
+        font-weight: 600;
+        padding: 0.25rem 0.6rem;
+        border-radius: 6px;
+        border: 1px solid #fee2e2;
+        background: #fff5f5;
+        color: #dc2626;
+        transition: all 0.2s ease;
+    }
+
+        .btn-role-remove:hover {
+            background: #dc2626;
+            color: #ffffff;
+            border-color: #dc2626;
+        }
+
+    .btn-role-add {
+        background: #10b981;
+        color: #ffffff;
+        border: none;
+        border-radius: 8px;
+        font-weight: 600;
+        padding: 0.6rem 1.2rem;
+        transition: all 0.2s ease;
+    }
+
+        .btn-role-add:hover {
+            background: #059669;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
+        }
+</style>
+
+<!-- ACTION MODULE HEADER -->
+<div class="d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center gap-3 pb-4 mb-4 user-profile-header">
+    <div>
+        <span class="text-uppercase fw-bold text-secondary d-block mb-1" style="font-size:0.72rem; letter-spacing:0.08em;">
+            Identity & Authorization Node
+        </span>
+        <h2 class="fw-extrabold mb-0" style="color: #0b1f3a;">Manage Access Control</h2>
+        <span class="text-muted small d-inline-flex align-items-center gap-1.5 mt-1">
+            <i class="bi bi-envelope-at text-slate-muted"></i> @Model.Email
+        </span>
+    </div>
+
+    <a asp-action="Index" class="btn btn-sm btn-action-cancel d-inline-flex align-items-center gap-2 py-2">
+        <i class="bi bi-arrow-left"></i> Back to Users
+    </a>
+</div>
+
+<div class="row g-4">
+
+    <!-- USER BASE DETAILS ENGINE -->
+    <div class="col-12 col-lg-8">
+        <div class="card border-0 premium-form-card">
+            <div class="card-header bg-white">
+                <h5 class="fw-bold mb-0" style="color: #0b1f3a;">User Identity Information</h5>
+            </div>
+
+            <div class="card-body">
+                <form asp-action="UpdateUser" method="post">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" name="Id" value="@Model.Id" />
+
+                    <div class="mb-3.5">
+                        <label class="form-label">Full Account Identity Name</label>
+                        <input name="FullName" value="@Model.FullName" class="form-control" placeholder="Enter full profile name" />
+                    </div>
+
+                    <div class="row g-3 mb-4">
+                        <div class="col-12 col-md-6">
+                            <label class="form-label">Email Communications Address</label>
+                            <input name="Email" value="@Model.Email" type="email" class="form-control" placeholder="name@domain.com" />
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <label class="form-label">Phone Interface Number</label>
+                            <input name="PhoneNumber" value="@Model.PhoneNumber" type="tel" class="form-control" placeholder="No phone record registered" />
+                        </div>
+                    </div>
+
+                    <div class="d-flex align-items-center gap-2 pt-2 border-top border-light-subtle">
+                        <button type="submit" class="btn btn-action-save d-inline-flex align-items-center gap-2">
+                            <i class="bi bi-save"></i> Save Profile Parameter Changes
+                        </button>
+                        <a asp-action="Index" class="btn btn-action-cancel">
+                            Cancel
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- REPLICATED AUTHORIZATION NETWORK MATRIX -->
+    <div class="col-12 col-lg-4">
+
+        <!-- CARD: ACTIVE ROLES LIST -->
+        <div class="card border-0 premium-form-card mb-4">
+            <div class="card-header bg-white">
+                <h5 class="fw-bold mb-0" style="color: #0b1f3a;">Assigned Security Roles</h5>
+            </div>
+
+            <div class="card-body d-flex flex-column gap-2.5">
+                @if (ViewBag.Roles != null && ((IEnumerable<string>)ViewBag.Roles).Any())
+                {
+                    @foreach (var role in (IEnumerable<string>)ViewBag.Roles)
+                    {
+                        <div class="d-flex justify-content-between align-items-center p-2 rounded-3 bg-light border border-light-subtle">
+                            <span class="badge role-badge-pill">
+                                <i class="bi bi-shield-check me-1"></i> @role
+                            </span>
+
+                            <form asp-action="RemoveRole" method="post" class="m-0 p-0">
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" name="userId" value="@Model.Id" />
+                                <input type="hidden" name="role" value="@role" />
+
+                                <button type="submit" class="btn btn-role-remove d-inline-flex align-items-center gap-1"
+                                        onclick="return confirm('Revoke @role authorization from this endpoint account?');">
+                                    <i class="bi bi-trash3 small"></i> Revoke
+                                </button>
+                            </form>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <div class="text-center py-3 border border-dashed rounded-3">
+                        <span class="text-muted small d-block">No current authorization parameters</span>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <!-- CARD: ASSIGN NEW ROLE ENGINE -->
+        <div class="card border-0 premium-form-card">
+            <div class="card-header bg-white">
+                <h5 class="fw-bold mb-0" style="color: #0b1f3a;">Escalate Permissions</h5>
+            </div>
+
+            <div class="card-body">
+                <form asp-action="AddRole" method="post">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" name="userId" value="@Model.Id" />
+
+                    <div class="mb-3">
+                        <label class="form-label">Select Authorization Scope</label>
+                        <select name="role" class="form-select">
+                            @foreach (var role in (IEnumerable<string>)ViewBag.AllRoles)
+                            {
+                                <option value="@role">@role</option>
+                            }
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn btn-role-add w-100 d-flex align-items-center justify-content-center gap-2">
+                        <i class="bi bi-person-plus-fill"></i> Provision Target Role
+                    </button>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>

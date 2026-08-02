@@ -1,0 +1,15 @@
+﻿@model YellowphaseWebsite.Models.Product
+
+<h2>Edit Product</h2>
+
+<form method="post">
+    <input type="hidden" asp-for="Id" />
+
+    <input asp-for="Name" class="form-control mb-2" />
+    <textarea asp-for="Description" class="form-control mb-2"></textarea>
+    <input asp-for="Price" class="form-control mb-2" />
+    <input asp-for="Category" class="form-control mb-2" />
+    <input asp-for="ImageUrl" class="form-control mb-2" />
+
+    <button class="btn btn-success">Update</button>
+</form>

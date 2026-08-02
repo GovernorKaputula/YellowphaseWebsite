@@ -1,0 +1,116 @@
+﻿@{
+    ViewData["Title"] = "About Us";
+}
+
+<style>
+    .about-hero {
+        background: #0b1f3a;
+        color: white;
+        padding: 100px 0;
+    }
+
+    .mission-card {
+        background: #f8fafc;
+        border-left: 5px solid #f4c542;
+        padding: 30px;
+        border-radius: 0 15px 15px 0;
+    }
+
+    .vision-card {
+        background: #f8fafc;
+        border-right: 5px solid #f4c542;
+        padding: 30px;
+        border-radius: 15px 0 0 15px;
+    }
+
+    .core-value-box {
+        padding: 30px;
+        border: 1px solid #e2e8f0;
+        border-radius: 15px;
+        transition: 0.3s;
+    }
+
+        .core-value-box:hover {
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            border-color: #f4c542;
+        }
+</style>
+
+<!-- HEADER -->
+<div class="about-hero text-center">
+    <div class="container">
+        <h1 class="display-3 fw-bold">About YellowPhase</h1>
+        <p class="lead text-white-50">Engineering & Technology Solutions Built for the Future</p>
+    </div>
+</div>
+
+<!-- WHO WE ARE -->
+<section class="py-5">
+    <div class="container py-5">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-6">
+                <h2 class="fw-bold mb-4">Engineering a Smarter Zambia</h2>
+                <p class="fs-5 text-muted">YellowPhase Electrical and Mechanical Engineers is a premier Zambian firm where industrial precision meets digital innovation.</p>
+                <p class="text-muted">We specialize in delivering high-impact solar energy, electrical infrastructure, mechanical systems, and enterprise ICT solutions. Our commitment is to bridge the gap between traditional engineering excellence and modern technological needs.</p>
+            </div>
+            <div class="col-lg-6">
+                <img src="/images/engineering.png" class="img-fluid rounded-4 shadow-lg" alt="Engineering Team">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- MISSION & VISION -->
+<section class="py-5 bg-light">
+    <div class="container py-5">
+        <div class="row g-4">
+            <div class="col-md-6">
+                <div class="mission-card h-100">
+                    <h3 class="fw-bold"><i class="fa fa-bullseye text-warning me-2"></i> Our Mission</h3>
+                    <p class="text-muted mt-3">To deliver high-quality engineering and technology solutions that drive energy efficiency, seamless connectivity, and robust infrastructure development across Zambia.</p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="vision-card h-100">
+                    <h3 class="fw-bold"><i class="fa fa-eye text-warning me-2"></i> Our Vision</h3>
+                    <p class="text-muted mt-3">To become the leading integrated engineering and ICT solutions provider in Southern Africa, setting the standard for sustainable and innovative service delivery.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CORE VALUES -->
+<section class="py-5">
+    <div class="container py-5 text-center">
+        <h2 class="fw-bold mb-5">Why Partner With Us?</h2>
+        <div class="row g-4">
+            @{
+                var values = new[] {
+                    ("Experienced Team", "fa-users"),
+                    ("Affordable Excellence", "fa-tag"),
+                    ("Reliable Delivery", "fa-clock"),
+                    ("Tech-Driven", "fa-microchip")
+                };
+            }
+            @foreach (var val in values)
+            {
+                <div class="col-md-3">
+                    <div class="core-value-box">
+                        <i class="fa @val.Item2 fa-3x text-warning mb-4"></i>
+                        <h5 class="fw-bold">@val.Item1</h5>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="py-5 bg-dark text-white text-center">
+    <div class="container py-4">
+        <h2 class="fw-bold">Ready to start your project?</h2>
+        <p class="lead text-white-50 mb-4">Our engineers and tech consultants are ready to help.</p>
+        <a href="/Home/Contact" class="btn btn-yellow btn-lg px-5">Contact Us Today</a>
+    </div>
+</section>

@@ -1,0 +1,67 @@
+﻿@model List<YellowphaseWebsite.Models.Product>
+
+<h2>Product Approval Panel</h2>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Seller</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Name</td>
+
+                <td>
+                    @(item.Seller != null
+                        ? item.Seller.BusinessName
+                        : "System / Unknown")
+                </td>
+
+                <td>@item.Price</td>
+                <td>@item.Quantity</td>
+
+                <td>
+                    @if (item.IsApproved)
+                    {
+                        <span class="text-success fw-bold">Approved</span>
+                    }
+                    else
+                    {
+                        <span class="text-warning fw-bold">Pending</span>
+                    }
+                </td>
+
+                <td>
+                    @if (!item.IsApproved)
+                    {
+                        <a class="btn btn-success btn-sm"
+                           href="/Admin/Products/Approve/@item.Id">
+                            Approve
+                        </a>
+                    }
+                    else
+                    {
+                        <a class="btn btn-warning btn-sm"
+                           href="/Admin/Products/Reject/@item.Id">
+                            Reject
+                        </a>
+                    }
+
+                    <a class="btn btn-danger btn-sm"
+                       href="/Admin/Products/DeleteAsync/@item.Id">
+                        Delete
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

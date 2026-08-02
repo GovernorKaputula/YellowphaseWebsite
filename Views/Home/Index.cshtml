@@ -1,0 +1,198 @@
+﻿@{
+    ViewData["Title"] = "Innovating the Future of Engineering & Tech";
+}
+
+<style>
+    /* Modern Tech Aesthetic */
+    :root {
+        --accent: #ffc107;
+        --dark: #0a0e14;
+    }
+
+    .hero-slide {
+        height: 85vh;
+        background-size: cover;
+        background-position: center;
+        display: flex;
+        align-items: center;
+    }
+
+    .hero-overlay {
+        background: rgba(10, 14, 20, 0.75);
+        height: 100%;
+        width: 100%;
+        display: flex;
+        align-items: center;
+    }
+
+    /* Sleek Cards */
+    .tech-card {
+        background: #ffffff;
+        border: none;
+        transition: 0.4s;
+        border-bottom: 4px solid var(--accent);
+        border-radius: 15px;
+    }
+
+        .tech-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+    /* Typography */
+    h1 {
+        font-weight: 800;
+        letter-spacing: -1px;
+    }
+
+    .gradient-text {
+        background: linear-gradient(45deg, #0d6efd, #0dcaf0);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+</style>
+
+<!-- HERO SECTION -->
+<!-- HERO SECTION -->
+<div id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
+
+    <!-- INDICATORS (MUST BE OUTSIDE carousel-inner) -->
+    <div class="carousel-indicators">
+        <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active"></button>
+        <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1"></button>
+        <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2"></button>
+        <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="3"></button>
+    </div>
+
+    <div class="carousel-inner">
+
+        <!-- ICT Slide -->
+        <div class="carousel-item active hero-slide"
+             style="background-image: url('/images/ict.jpg');">
+            <div class="hero-overlay">
+                <div class="container text-center">
+                    <h1 class="display-2 text-white">Next-Gen <span class="text-warning">ICT Solutions</span></h1>
+                    <p class="lead text-white-50 fs-4 mb-4">
+                        Empowering businesses with smart systems, networking, and software solutions.
+                    </p>
+                    <a href="/Home/Services" class="btn btn-warning btn-lg px-5 rounded-pill shadow-lg">
+                        Explore Technology
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- SOLAR Slide -->
+        <div class="carousel-item hero-slide"
+             style="background-image: url('/images/solar.jpg');">
+            <div class="hero-overlay">
+                <div class="container text-center">
+                    <h1 class="display-2 text-white">Sustainable <span class="text-warning">Energy Systems</span></h1>
+                    <p class="lead text-white-50 fs-4 mb-4">
+                        Reliable solar installations and energy solutions for homes and businesses.
+                    </p>
+                    <a href="/Home/Contact" class="btn btn-outline-warning btn-lg px-5 rounded-pill">
+                        Get a Quote
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- ELECTRICAL Slide -->
+        <div class="carousel-item hero-slide"
+             style="background-image: url('/images/electrical.jpg');">
+            <div class="hero-overlay">
+                <div class="container text-center">
+                    <h1 class="display-2 text-white">Professional <span class="text-warning">Electrical Works</span></h1>
+                    <p class="lead text-white-50 fs-4 mb-4">
+                        Expert wiring, installations, and maintenance for residential and industrial systems.
+                    </p>
+                    <a href="/Home/Services" class="btn btn-warning btn-lg px-5 rounded-pill">
+                        View Services
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- MECHANICAL Slide -->
+        <div class="carousel-item hero-slide"
+             style="background-image: url('/images/mechanical.jpg');">
+            <div class="hero-overlay">
+                <div class="container text-center">
+                    <h1 class="display-2 text-white">Industrial <span class="text-warning">Mechanical Services</span></h1>
+                    <p class="lead text-white-50 fs-4 mb-4">
+                        Equipment installation, maintenance, and mechanical engineering support.
+                    </p>
+                    <a href="/Home/Projects" class="btn btn-outline-warning btn-lg px-5 rounded-pill">
+                        See Projects
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- SERVICES GRID -->
+<section class="py-5 bg-light">
+    <div class="container py-5">
+        <div class="text-center mb-5">
+            <h2 class="display-5 fw-bold">Integrated Engineering</h2>
+            <div class="mx-auto bg-warning" style="width: 80px; height: 4px;"></div>
+        </div>
+        <div class="row g-4">
+            @{
+                var services = new[] {
+                    ("ICT Solutions", "fa-laptop-code", "AI-driven software, robust network architecture, and digital transformation."),
+                    ("Solar Systems", "fa-solar-panel", "Hybrid solar installations with smart energy management."),
+                    ("Electrical Works", "fa-bolt", "High-precision industrial wiring and maintenance."),
+                    ("Mechanical", "fa-cogs", "Advanced industrial equipment and system installation.")
+                };
+            }
+            @foreach (var s in services)
+            {
+                <div class="col-lg-3 col-md-6">
+                    <div class="card tech-card p-4 h-100">
+                        <i class="fa @s.Item2 fa-3x text-warning mb-3"></i>
+                        <h4 class="fw-bold">@s.Item1</h4>
+                        <p class="text-muted">@s.Item3</p>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+<!-- TECH-DRIVEN ABOUT -->
+<section class="py-5">
+    <div class="container py-5">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-6">
+                <h6 class="text-primary fw-bold text-uppercase">Who We Are</h6>
+                <h2 class="display-4 fw-bold mb-4">YellowPhase: Where <span class="gradient-text">Innovation</span> meets Engineering.</h2>
+                <p class="fs-5 text-muted">We don't just fix systems; we optimize them for the digital age. By bridging the gap between hardware engineering and software intelligence, we deliver unparalleled value to Zambian industries.</p>
+                <a href="/Home/About" class="btn btn-dark btn-lg mt-3">Discover Our Vision</a>
+            </div>
+            <div class="col-lg-6">
+                <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c" class="img-fluid rounded-4 shadow-lg" alt="Tech">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CALL TO ACTION -->
+<section class="py-5">
+    <div class="container">
+        <div class="card bg-dark text-white p-5 rounded-5 shadow-lg border-0">
+            <div class="row align-items-center">
+                <div class="col-md-8">
+                    <h2 class="fw-bold">Ready to digitize your infrastructure?</h2>
+                    <p class="text-white-50 lead">Join the growing number of companies trusting YellowPhase for their technological future.</p>
+                </div>
+                <div class="col-md-4 text-md-end">
+                    <a href="/Home/Contact" class="btn btn-warning btn-lg px-4 rounded-pill">Start a Consultation</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,406 @@
+﻿@model YellowphaseWebsite.Models.ViewModels.LoginViewModel
+
+<div class="container-fluid min-vh-100 p-0 overflow-hidden" style="background: #fafbfc; font-family: 'Inter', system-ui, -apple-system, sans-serif;">
+    <div class="row g-0 min-vh-100">
+
+        <!-- LEFT PANEL: 50/50 Premium Deep Tech Gradient Backdrop -->
+        <div class="col-12 col-lg-6 d-none d-lg-flex flex-column justify-content-between p-5 text-white position-relative"
+             style="background: linear-gradient(145deg, #0b1f3a 0%, #112d52 50%, #071526 100%);">
+
+            <!-- Soft Radial Background Lighting -->
+            <div class="position-absolute top-0 start-0 w-100 h-100"
+                 style="background: radial-gradient(circle at 10% 20%, rgba(244, 197, 66, 0.05) 0%, transparent 40%); pointer-events: none;">
+            </div>
+
+            <!-- Brand Header -->
+            <div class="position-relative z-index-1">
+                <a href="/" class="text-decoration-none text-white d-flex align-items-center gap-2">
+                    <div class="rounded-3 d-flex align-items-center justify-content-center" style="width: 40px; height: 40px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); backdrop-filter: blur(10px);">
+                        <i class="bi bi-lightning-charge-fill" style="color: #f4c542;"></i>
+                    </div>
+                    <span class="fw-bold tracking-tight fs-3" style="color: #f4c542;">Yellow<span style="color: #f8f9fa;">Phase</span></span>
+                </a>
+            </div>
+
+            <!-- Core Pitch Message -->
+            <div class="my-auto position-relative z-index-1" style="max-width: 540px;">
+                <span class="badge fw-semibold px-3 py-2 rounded-pill mb-4 text-uppercase tracking-wider shadow-sm"
+                      style="background-color: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255,255,255,0.1); color: #f4c542; font-size: 0.75rem;">
+                    Merchant Hub Terminal
+                </span>
+
+                <h1 class="display-4 fw-extrabold mb-3 lh-sm text-white" id="pitchTitle">Your Business Waits!</h1>
+                <p class="fs-5 text-white-50 mb-5" id="pitchDesc">Join thousands of high-performing sellers leveraging our next-generation distribution network, AI-driven metrics, and instant payment clearings.</p>
+
+                <!-- Value Proposition Grid List -->
+                <div class="row g-4">
+                    <div class="col-sm-6">
+                        <div class="d-flex gap-3">
+                            <div class="fs-4 pt-1" style="color: #f4c542;"><i class="bi bi-graph-up-arrow"></i></div>
+                            <div>
+                                <h6 class="fw-bold mb-1 text-white">0% Onboarding Fee</h6>
+                                <p class="small text-white-50 mb-0">Keep 100% of your earnings for the first 30 days. No hidden costs.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="d-flex gap-3">
+                            <div class="fs-4 pt-1" style="color: #f4c542;"><i class="bi bi-lightning-fill"></i></div>
+                            <div>
+                                <h6 class="fw-bold mb-1 text-white">Instant Payouts</h6>
+                                <p class="small text-white-50 mb-0">Direct deposits cleared to your business merchant wallet in real-time.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer Metrics bar -->
+            <div class="d-flex align-items-center gap-5 position-relative z-index-1 border-top border-white-10 pt-4 text-white-50">
+                <div>
+                    <h5 class="fw-bold text-white mb-0">ZMW 45M+</h5>
+                    <span class="small" style="font-size: 0.75rem;">Seller Volume Processed</span>
+                </div>
+                <div class="border-start border-white-10 ps-5">
+                    <h5 class="fw-bold text-white mb-0">99.8%</h5>
+                    <span class="small" style="font-size: 0.75rem;">Platform Uptime Guarantee</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- RIGHT PANEL: 50/50 Workspace with Square Social Sign-Ins -->
+        <div class="col-12 col-lg-6 d-flex align-items-center justify-content-center p-4 p-md-5" style="background-color: #ffffff;">
+            <div class="w-100" style="max-width: 420px;">
+
+                <!-- Mobile Only Header Branding -->
+                <div class="d-lg-none mb-4 text-center">
+                    <h3 class="fw-bold tracking-tight" style="color: #0b1f3a;">yellow<span style="color: #475569;">phase</span></h3>
+                    <p class="text-muted small">Merchant Storefront Network Node</p>
+                </div>
+
+                <!-- NAVIGATION TABS: Switches between Login & Register states -->
+                <div class="state-tabs d-flex p-1 mb-4 rounded-3 bg-light">
+                    <button type="button" class="tab-item active w-50 py-2.5 border-0 small fw-bold text-center transition-all" id="tabLogin">
+                        Login
+                    </button>
+                    <button type="button" class="tab-item w-50 py-2.5 border-0 small fw-semibold text-center text-muted transition-all" id="tabRegister">
+                        Register
+                    </button>
+                </div>
+
+                <!-- Form Dynamic Headers -->
+                <div class="mb-4">
+                    <h2 class="fw-bold mb-1" id="formMainTitle" style="color: #0b1f3a; letter-spacing: -0.02em;">Welcome Back</h2>
+                    <p class="text-muted small mb-0" id="formSubTitle">Enter your credentials to access your store dashboard.</p>
+                </div>
+
+                <!-- SQUARE SOCIAL AUTHENTICATION GRID -->
+                <div id="oauthContainer" class="d-flex gap-3 justify-content-between mb-3">
+                    <a href="/Account/ExternalLogin?provider=Google" class="btn btn-outline-social-square flex-grow-1 d-flex align-items-center justify-content-center shadow-sm" title="Sign in with Google">
+                        <svg width="22" height="22" viewBox="0 0 24 24"><path fill="#EA4335" d="M5.266 9.765A7.077 7.077 0 0 1 12 4.909c1.69 0 3.218.6 4.418 1.582L19.91 3A11.966 11.966 0 0 0 12 0C7.325 0 3.303 2.541 1.156 6.291l4.11 3.474z" /><path fill="#4285F4" d="M24 12.273c0-.818-.073-1.61-.21-2.386H12v4.523h6.734a5.753 5.753 0 0 1-2.495 3.773v3.136h4.032C22.623 19.336 24 16.1 24 12.273z" /><path fill="#FBBC05" d="M5.266 14.235L1.156 17.71A11.966 11.966 0 0 0 12 24c3.236 0 5.955-1.073 7.94-2.914l-4.032-3.136c-1.095.736-2.5 1.173-3.908 1.173-2.882 0-5.323-1.945-6.195-4.564z" /><path fill="#34A853" d="M12 19.123c-1.409 0-2.814-.437-3.909-1.173L4.06 21.086A11.966 11.966 0 0 0 12 24c4.675 0 8.697-2.541 10.844-6.291l-4.11-3.474c-.872 2.619-3.313 4.564-6.195 4.564z" /></svg>
+                    </a>
+                    <a href="/Account/ExternalLogin?provider=GitHub" class="btn btn-outline-social-square flex-grow-1 d-flex align-items-center justify-content-center shadow-sm" title="Sign in with GitHub">
+                        <i class="bi bi-github fs-4 text-dark"></i>
+                    </a>
+                    <a href="/Account/ExternalLogin?provider=Apple" class="btn btn-outline-social-square flex-grow-1 d-flex align-items-center justify-content-center shadow-sm" title="Sign in with Apple">
+                        <i class="bi bi-apple fs-4 text-dark"></i>
+                    </a>
+                </div>
+
+                <!-- VISUAL DIVIDER BLOCK -->
+                <div class="d-flex align-items-center my-4 text-muted">
+                    <hr class="flex-grow-1 my-0 bg-light-subtle">
+                    <span class="mx-3 small fw-bold tracking-wider text-uppercase text-secondary" style="font-size: 0.725rem;">OR CONTINUE WITH</span>
+                    <hr class="flex-grow-1 my-0 bg-light-subtle">
+                </div>
+
+                <!-- Unified Form Formats -->
+                <form id="merchantAuthForm" method="post" action="/Account/Login" class="needs-validation" novalidate>
+
+                    <!-- Corporate Name (Hidden in Login Mode) -->
+                    <div id="registerGroupCompanyName" class="mb-3 position-relative conditional-field d-none opacity-0">
+                        <label class="form-label small fw-semibold text-secondary">Registered Corporate Name</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light border-end-0 text-muted" style="border-color: #e2e8f0;"><i class="bi bi-building"></i></span>
+                            <input type="text" name="CompanyName" placeholder="Yellowphase Tech Ltd" class="form-control border-start-0 py-2.5 shadow-none" style="border-color: #e2e8f0; border-radius: 0 8px 8px 0; font-size: 0.95rem; background-color: #f8fafc;" />
+                        </div>
+                    </div>
+
+                    <!-- Core Shared Email Field -->
+                    <div class="mb-3 position-relative">
+                        <label class="form-label small fw-semibold text-secondary" id="emailLabel">Merchant Email Address</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light border-end-0 text-muted" style="border-color: #e2e8f0;"><i class="bi bi-envelope"></i></span>
+                            <input asp-for="Email" type="email" placeholder="name@company.com" class="form-control border-start-0 py-2.5 shadow-none" style="border-color: #e2e8f0; border-radius: 0 8px 8px 0; font-size: 0.95rem; background-color: #f8fafc;" required />
+                        </div>
+                    </div>
+
+                    <!-- Core Shared Password Field -->
+                    <div class="mb-3 position-relative">
+                        <div class="d-flex justify-content-between align-items-center mb-1">
+                            <label class="form-label small fw-semibold text-secondary mb-0" id="passwordLabel">Security Password</label>
+                            <a href="/Account/ForgotPassword" id="forgotPasswordLink" class="text-decoration-none small fw-semibold" style="color: #0b1f3a; font-size: 0.8rem;">Forgot password?</a>
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light border-end-0 text-muted" style="border-color: #e2e8f0;"><i class="bi bi-lock"></i></span>
+                            <input asp-for="Password" type="password" placeholder="••••••••" class="form-control border-start-0 py-2.5 shadow-none" style="border-color: #e2e8f0; border-radius: 0 8px 8px 0; font-size: 0.95rem; background-color: #f8fafc;" required />
+                        </div>
+                    </div>
+
+                    <!-- Security Password Verification (Hidden in Login Mode) -->
+                    <div id="registerGroupConfirmPassword" class="mb-4 position-relative conditional-field d-none opacity-0">
+                        <label class="form-label small fw-semibold text-secondary">Verify Security Password</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light border-end-0 text-muted" style="border-color: #e2e8f0;"><i class="bi bi-shield-lock"></i></span>
+                            <input type="password" name="ConfirmPassword" placeholder="••••••••" class="form-control border-start-0 py-2.5 shadow-none" style="border-color: #e2e8f0; border-radius: 0 8px 8px 0; font-size: 0.95rem; background-color: #f8fafc;" />
+                        </div>
+                    </div>
+
+                    <!-- Session Management (Hidden in Registration Mode) -->
+                    <div id="loginGroupRememberMe" class="d-flex align-items-center justify-content-between mb-4 conditional-field">
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input shadow-none" id="rememberMe" style="cursor: pointer; border-color: #cbd5e1;">
+                            <label class="form-check-label text-muted small user-select-none" for="rememberMe" style="cursor: pointer; font-size: 0.85rem;">Keep session active</label>
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" id="submitActionButton" class="btn text-white w-100 py-2.5 fw-semibold mb-3 d-flex align-items-center justify-content-center gap-2 shadow-sm submit-btn">
+                        <span id="btnText">Access Control Console</span> <i class="bi bi-arrow-right small"></i>
+                    </button>
+                </form>
+
+                <!-- Hidden structural fallback anchor for JavaScript action targeting -->
+                <a href="javascript:void(0);" id="toggleModeButton" class="d-none"></a>
+
+                <!-- Operational Metadata Disclaimer -->
+                <div class="mt-4 pt-3 text-center text-muted" style="font-size: 0.725rem; border-top: 1px dashed #e2e8f0;">
+                    <span>Yellowphase enterprise profiles launched before September 18th, 2025, can continue routing authentication access through legacy portals.</span>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- COMPREHENSIVE TAB-DRIVEN STATE ANIMATION SCRIPT -->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        let isRegisterMode = false;
+
+        const formElement = document.getElementById("merchantAuthForm");
+        const submitBtnText = document.getElementById("btnText");
+
+        // Heading Fields
+        const mainTitle = document.getElementById("formMainTitle");
+        const subTitle = document.getElementById("formSubTitle");
+        const pitchTitle = document.getElementById("pitchTitle");
+        const pitchDesc = document.getElementById("pitchDesc");
+
+        // Control Labels
+        const emailLabel = document.getElementById("emailLabel");
+        const passwordLabel = document.getElementById("passwordLabel");
+        const forgotPasswordLink = document.getElementById("forgotPasswordLink");
+
+        // Conditional Groups
+        const regCompanyField = document.getElementById("registerGroupCompanyName");
+        const regConfirmPassField = document.getElementById("registerGroupConfirmPassword");
+        const loginRememberField = document.getElementById("loginGroupRememberMe");
+
+        // Target Selectors
+        const tabLogin = document.getElementById("tabLogin");
+        const tabRegister = document.getElementById("tabRegister");
+
+        const companyInput = regCompanyField.querySelector('input');
+        const confirmPasswordInput = regConfirmPassField.querySelector('input');
+
+        // Main State Morphing Engine Engine Rules
+        function runStateTransition(targetMode) {
+            if (isRegisterMode === targetMode) return;
+            isRegisterMode = targetMode;
+
+            // Animate headers visibility states down
+            mainTitle.style.opacity = "0";
+            subTitle.style.opacity = "0";
+            pitchTitle.style.opacity = "0";
+            pitchDesc.style.opacity = "0";
+
+            setTimeout(() => {
+                if (isRegisterMode) {
+                    // Sync tab states visually
+                    tabLogin.classList.remove("active", "fw-bold", "text-dark");
+                    tabLogin.classList.add("text-muted", "fw-semibold");
+                    tabRegister.classList.add("active", "fw-bold", "text-dark");
+                    tabRegister.classList.remove("text-muted", "fw-semibold");
+
+                    // Morph parameters to Registration Mode
+                    mainTitle.innerText = "Create Merchant Account";
+                    subTitle.innerText = "Provide your enterprise operational records to set up your store node.";
+                    emailLabel.innerText = "Corporate Contact Email";
+                    passwordLabel.innerText = "Create Account Password";
+
+                    pitchTitle.innerText = "Onboard your merchant storefront in under 5 minutes.";
+                    pitchDesc.innerText = "Gain instant allocation keys, unlock real-time financial tools, and list your hardware catalogs across global corporate supply networks.";
+
+                    formElement.setAttribute("action", "/Account/Register");
+                    submitBtnText.innerText = "Initialize Storefront Architecture";
+                    forgotPasswordLink.classList.add("d-none");
+
+                    loginRememberField.classList.add("d-none");
+                    regCompanyField.classList.remove("d-none");
+                    regConfirmPassField.classList.remove("d-none");
+
+                    companyInput.setAttribute("required", "required");
+                    confirmPasswordInput.setAttribute("required", "required");
+
+                    setTimeout(() => {
+                        regCompanyField.classList.add("show-field");
+                        regConfirmPassField.classList.add("show-field");
+                    }, 50);
+
+                } else {
+                    // Sync tab states visually
+                    tabRegister.classList.remove("active", "fw-bold", "text-dark");
+                    tabRegister.classList.add("text-muted", "fw-semibold");
+                    tabLogin.classList.add("active", "fw-bold", "text-dark");
+                    tabLogin.classList.remove("text-muted", "fw-semibold");
+
+                    // Morph parameters back to Login Mode
+                    mainTitle.innerText = "Welcome Back";
+                    subTitle.innerText = "Enter your merchant credentials to manage your catalog storefront network.";
+                    emailLabel.innerText = "Merchant Email Address";
+                    passwordLabel.innerText = "Security Password";
+
+                    pitchTitle.innerText = "Scale your business across global channels.";
+                    pitchDesc.innerText = "Join thousands of high-performing sellers leveraging our next-generation distribution network, AI-driven metrics, and instant payment clearings.";
+
+                    formElement.setAttribute("action", "/Account/Login");
+                    submitBtnText.innerText = "Access Control Console";
+                    forgotPasswordLink.classList.remove("d-none");
+
+                    regCompanyField.classList.remove("show-field");
+                    regConfirmPassField.classList.remove("show-field");
+                    loginRememberField.classList.remove("d-none");
+
+                    companyInput.removeAttribute("required");
+                    confirmPasswordInput.removeAttribute("required");
+
+                    setTimeout(() => {
+                        regCompanyField.classList.add("d-none");
+                        regConfirmPassField.classList.add("d-none");
+                    }, 200);
+                }
+
+                // Restore headings clarity configurations
+                mainTitle.style.opacity = "1";
+                subTitle.style.opacity = "1";
+                pitchTitle.style.opacity = "1";
+                pitchDesc.style.opacity = "1";
+            }, 200);
+        }
+
+        // Direct tab interaction entry points binding
+        tabLogin.addEventListener("click", () => runStateTransition(false));
+        tabRegister.addEventListener("click", () => runStateTransition(true));
+    });
+</script>
+
+<style>
+    /* Premium High-Fidelity UI Component Framework Styles */
+    #formMainTitle, #formSubTitle, #pitchTitle, #pitchDesc {
+        transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .form-control:focus {
+        border-color: #0b1f3a !important;
+        background-color: #fff !important;
+    }
+
+    .input-group:focus-within .input-group-text {
+        border-color: #0b1f3a !important;
+        background-color: #fff !important;
+    }
+
+    .border-white-10 {
+        border-color: rgba(255, 255, 255, 0.08) !important;
+    }
+
+    .tracking-tight {
+        letter-spacing: -0.025em;
+    }
+
+    .tracking-wider {
+        letter-spacing: 0.06em;
+    }
+
+    .fw-extrabold {
+        font-weight: 800;
+    }
+
+    .py-2.5 {
+        padding-top: 0.625rem;
+        padding-bottom: 0.625rem;
+    }
+
+    /* Bluehost Segmented Header Selector Layout Customizations */
+    .state-tabs {
+        background-color: #f1f5f9;
+        padding: 4px;
+    }
+
+    .tab-item {
+        background: transparent;
+        border-radius: 6px;
+        color: #64748b;
+        font-size: 0.9rem;
+        outline: none;
+    }
+
+        .tab-item.active {
+            background: #ffffff !important;
+            color: #0b1f3a !important;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+        }
+
+    /* Federated Platform Square Identity Callouts Layout */
+    .btn-outline-social-square {
+        border: 1px solid #e2e8f0;
+        background: #ffffff;
+        border-radius: 12px;
+        aspect-ratio: 1 / 1;
+        height: 52px;
+        transition: all 0.2s ease-in-out;
+    }
+
+        .btn-outline-social-square:hover {
+            background: #f8fafc;
+            border-color: #cbd5e1;
+            transform: translateY(-1px);
+        }
+
+    /* Core Submit Actions Configuration rules */
+    .submit-btn {
+        background: #0b1f3a;
+        border: none;
+        border-radius: 8px;
+        font-size: 0.95rem;
+        transition: all 0.2s ease;
+    }
+
+        .submit-btn:hover {
+            background: #061324;
+            transform: translateY(-1px);
+        }
+
+    /* Interactive field transform configuration parameters */
+    .conditional-field {
+        transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.2s linear;
+        transform: translateY(-8px);
+    }
+
+        .conditional-field.show-field {
+            opacity: 1 !important;
+            transform: translateY(0);
+        }
+</style>

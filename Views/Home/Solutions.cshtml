@@ -1,0 +1,383 @@
+﻿@model IEnumerable<YellowphaseWebsite.ViewModels.ProductViewModel>
+@using System.Globalization
+
+@{
+    ViewData["Title"] = "Digital Solutions";
+}
+
+<style>
+    /* Premium Landing Page Styling */
+    .hero-digital {
+        background: linear-gradient(135deg, #0b1f3a, #1a4d8c);
+        padding: 120px 0;
+        color: white;
+    }
+
+    .package-card {
+        border-radius: 20px;
+        border: none;
+        transition: 0.4s;
+    }
+
+        .package-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.1) !important;
+        }
+
+    .highlight-section {
+        background: #f8fafc;
+        border-radius: 30px;
+    }
+
+    .btn-yellow {
+        background: #f4c542;
+        color: #000;
+        font-weight: 800;
+        border-radius: 50px;
+        padding: 15px 40px;
+        transition: 0.3s;
+    }
+
+        .btn-yellow:hover {
+            background: #e0b935;
+            color: #000;
+        }
+
+    .feature-icon {
+        font-size: 2.5rem;
+        color: #f4c542;
+        margin-bottom: 15px;
+    }
+</style>
+
+<style>
+    .product-card {
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        border-radius: 24px;
+        background: #ffffff;
+        border: 1px solid rgba(0,0,0,0.05);
+    }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.12) !important;
+        }
+
+    .badge-premium {
+        background: #0b1f3a;
+        color: #f4c542;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        font-size: 0.7rem;
+        padding: 6px 12px;
+    }
+
+    .btn-action {
+        border-radius: 12px;
+        font-weight: 600;
+        padding: 8px 16px;
+    }
+</style>
+
+<style>
+    .icon-wrapper {
+        width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #f1f5f9;
+        color: #0b1f3a;
+        border-radius: 16px;
+        font-size: 1.5rem;
+        margin-bottom: 20px;
+    }
+
+    .product-card {
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        border-radius: 24px;
+        border: 1px solid #e2e8f0;
+    }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            border-color: #f4c542;
+            box-shadow: 0 20px 30px -10px rgba(0,0,0,0.1) !important;
+        }
+
+    .btn-action {
+        border-radius: 12px;
+        font-weight: 600;
+        padding: 10px 16px;
+    }
+</style>
+
+<!-- HERO -->
+<section class="hero-digital text-center">
+    <div class="container">
+        <h1 class="display-2 fw-bold">Digitize Your Business.</h1>
+        <p class="lead mt-3 text-white-50">Custom web development, enterprise-grade software, and high-performance apps built to scale.</p>
+        <div class="mt-5">
+            <a href="/Home/Contact" class="btn btn-yellow btn-lg shadow">Get Free Consultation</a>
+        </div>
+    </div>
+</section>
+
+<!-- =========================================================================
+     HIGH-CONVERSION WEBSITE PACKAGES MATRIX
+     ========================================================================= -->
+<section class="py-5 bg-light-subtle">
+    <div class="container py-5 text-center">
+
+        <!-- CLEAR HEADING SYSTEM -->
+        <div class="row justify-content-center mb-5">
+            <div class="col-md-8 col-lg-6">
+                <span class="d-inline-block text-uppercase font-monospace tracking-wider text-warning fw-bold mb-2" style="font-size: 0.75rem; letter-spacing: 0.08em;">Simple, Transparent Pricing</span>
+                <h2 class="fw-extrabold tracking-tight mb-2 text-dark" style="font-size: 2.25rem; color: #0b1f3a;">Choose the Right Plan for Your Business</h2>
+                <p class="text-muted small mb-0">All website packages include fully responsive layouts, clean design, and continuous optimization features.</p>
+            </div>
+        </div>
+
+        <!-- PRICING TIERS -->
+        <div class="row g-4 align-items-stretch justify-content-center">
+
+            <!-- TIER 1: STARTER PLAN -->
+            <div class="col-md-6 col-lg-4">
+                <div class="card border-0 rounded-4 shadow-sm p-4 h-100 bg-white transition-all hover-translate-up">
+                    <div class="mb-3">
+                        <h4 class="fw-extrabold text-dark tracking-tight mb-1" style="font-size: 1.35rem;">Starter Plan</h4>
+                        <p class="text-muted small mb-0">Best for small businesses and simple landing pages.</p>
+                    </div>
+
+                    <div class="my-4">
+                        <span class="display-5 fw-black text-dark font-monospace">@(!string.IsNullOrEmpty(Model.ElementAt(0).DisplayPrice) ? Model.ElementAt(0).DisplayPrice : Model.ElementAt(0).Price.ToString("C", CultureInfo.CurrentCulture))</span>
+                        <span class="text-muted small d-block mt-1" style="font-size: 0.72rem;">One-time payment</span>
+                    </div>
+
+                    <hr class="text-muted opacity-10 my-3" />
+
+                    <ul class="list-unstyled text-start mb-4 flex-grow-1 spec-list">
+                        <li class="mb-2.5 small text-secondary"><i class="bi bi-check2-circle text-success me-2 fw-bold"></i> Up to 5 Complete Pages</li>
+                        <li class="mb-2.5 small text-secondary"><i class="bi bi-check2-circle text-success me-2 fw-bold"></i> Works perfectly on Mobile Phones</li>
+                        <li class="mb-2.5 small text-secondary"><i class="bi bi-check2-circle text-success me-2 fw-bold"></i> Basic Google Search Setup</li>
+                        <li class="mb-2.5 small text-secondary"><i class="bi bi-check2-circle text-success me-2 fw-bold"></i> Contact Form &amp; Maps Integration</li>
+                        <li class="mb-2.5 small text-secondary"><i class="bi bi-check2-circle text-success me-2 fw-bold"></i> Free <span class="font-monospace text-dark fw-semibold">.com</span> / <span class="font-monospace text-dark fw-semibold">.zm</span> Domain</li>
+                    </ul>
+
+                    <a href="/Checkout?productId=19" class="btn btn-light border w-100 py-2.5 rounded-3 fw-bold shadow-sm transition-all text-secondary fs-7.5">
+                        Get Started
+                    </a>
+                </div>
+            </div>
+
+            <!-- TIER 2: BUSINESS SUITE (HIGH CONVERSION HERO TIER) -->
+            <div class="col-md-6 col-lg-4">
+                <div class="card border-2 border-warning rounded-4 shadow p-4 h-100 bg-white position-relative transition-all hover-translate-up" style="transform: scale(1.02); z-index: 2;">
+
+                    <!-- CONVERSION BADGE -->
+                    <span class="position-absolute top-0 start-50 translate-middle badge bg-warning text-dark px-3 py-2 rounded-pill fw-bold text-uppercase tracking-wider font-monospace" style="font-size: 0.68rem; letter-spacing: 0.05em; box-shadow: 0 4px 10px rgba(255, 193, 7, 0.35);">
+                        Most Popular Choice
+                    </span>
+
+                    <div class="mb-3 mt-2">
+                        <h4 class="fw-extrabold text-dark tracking-tight mb-1" style="font-size: 1.35rem;">Business Suite</h4>
+                        <p class="text-muted small mb-0">Best for growing brands who want to manage content.</p>
+                    </div>
+
+                    <div class="my-4">
+                        <span class="display-5 fw-black text-dark font-monospace">@(!string.IsNullOrEmpty(Model.ElementAt(1).DisplayPrice) ? Model.ElementAt(1).DisplayPrice : Model.ElementAt(1).Price.ToString("C", CultureInfo.CurrentCulture))</span>
+                        <span class="text-muted small d-block mt-1" style="font-size: 0.72rem;">One-time payment</span>
+                    </div>
+
+                    <hr class="text-muted opacity-10 my-3" />
+
+                    <ul class="list-unstyled text-start mb-4 flex-grow-1 spec-list">
+                        <li class="mb-2.5 small text-dark fw-semibold"><i class="bi bi-check2-circle text-success me-2 fw-bold"></i> Up to 10 Complete Pages</li>
+                        <li class="mb-2.5 small text-secondary"><i class="bi bi-check2-circle text-success me-2 fw-bold"></i> Content Management System (CMS)</li>
+                        <li class="mb-2.5 small text-secondary"><i class="bi bi-check2-circle text-success me-2 fw-bold"></i> Easy Admin Dashboard to edit text/images</li>
+                        <li class="mb-2.5 small text-secondary"><i class="bi bi-check2-circle text-success me-2 fw-bold"></i> WhatsApp Chat &amp; Social Media Links</li>
+                        <li class="mb-2.5 small text-secondary"><i class="bi bi-check2-circle text-success me-2 fw-bold"></i> Faster Page Loading Speed Setup</li>
+                        <li class="mb-2.5 small text-secondary"><i class="bi bi-check2-circle text-success me-2 fw-bold"></i> 30 Days Free Technical Support</li>
+                    </ul>
+
+                    <a href="/Checkout?productId=20" class="btn btn-dark w-100 py-2.5 rounded-3 fw-bold shadow-sm transition-all hover-translate-up fs-7.5">
+                        Choose Business Suite
+                    </a>
+                </div>
+            </div>
+
+            <!-- TIER 3: CUSTOM ENTERPRISE -->
+            <div class="col-md-6 col-lg-4">
+                <div class="card border-0 rounded-4 shadow-sm p-4 h-100 bg-white transition-all hover-translate-up">
+                    <div class="mb-3">
+                        <h4 class="fw-extrabold text-dark tracking-tight mb-1" style="font-size: 1.35rem;">Custom Enterprise</h4>
+                        <p class="text-muted small mb-0">Best for complex apps, systems, and online shops.</p>
+                    </div>
+
+                    <div class="my-4">
+                        <span class="display-5 fw-black text-dark font-monospace">@(!string.IsNullOrEmpty(Model.ElementAt(2).DisplayPrice) ? Model.ElementAt(2).DisplayPrice : Model.ElementAt(2).Price.ToString("C", CultureInfo.CurrentCulture))</span>
+                        <span class="text-muted small d-block mt-1" style="font-size: 0.72rem;">Starting price</span>
+                    </div>
+
+                    <hr class="text-muted opacity-10 my-3" />
+
+                    <ul class="list-unstyled text-start mb-4 flex-grow-1 spec-list">
+                        <li class="mb-2.5 small text-secondary"><i class="bi bi-check2-circle text-success me-2 fw-bold"></i> Unlimited Custom Built Pages</li>
+                        <li class="mb-2.5 small text-secondary"><i class="bi bi-check2-circle text-success me-2 fw-bold"></i> Online Payment &amp; Card Integrations</li>
+                        <li class="bi-check2-circle mb-2.5 small text-secondary"><i class="bi bi-check2-circle text-success me-2 fw-bold"></i> Secure Client Database Setup</li>
+                        <li class="mb-2.5 small text-secondary"><i class="bi bi-check2-circle text-success me-2 fw-bold"></i> Advanced Security &amp; Firewalls</li>
+                        <li class="mb-2.5 small text-secondary"><i class="bi bi-check2-circle text-success me-2 fw-bold"></i> Automated Daily Site Backups</li>
+                        <li class="mb-2.5 small text-secondary"><i class="bi bi-check2-circle text-success me-2 fw-bold"></i> Priority Support Service Line</li>
+                    </ul>
+
+                    <a href="/Checkout?productId=21" class="btn btn-light border w-100 py-2.5 rounded-3 fw-bold shadow-sm transition-all text-secondary fs-7.5">
+                        Get Started
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- SOFTWARE PORTFOLIO -->
+<section class="py-5 bg-white">
+    <div class="container py-5">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold display-6">Digital Engineering Portfolio</h2>
+            <p class="text-muted fs-5">Enterprise-grade systems and creative applications.</p>
+        </div>
+
+        <div class="row g-4">
+            @{
+                var products = new[] {
+                    ("Village Banking Suite", "Full cooperative management for loans, interest, and savings.", "https://myvillagebankingapp-bweteuhph0cqadh2.southafricanorth-01.azurewebsites.net/", "VillageBankingSuite", "fa-solid fa-building-columns", "Enterprise"),
+                    ("Public Complaint System", "Streamlined cloud-based workflow for public service feedback.", "https://complaint-demo-link.com", "ComplaintSystem", "fa-solid fa-headset", "GovTech"),
+                    ("Wedding Invitation", "Elegant, responsive digital invitation platform.", "https://governorkaputula.github.io/Wedding-Invitation-Website/", "WeddingInvitation", "fa-solid fa-rings-wedding", "UX/UI"),
+                    ("Valentine Experience", "Interactive and playful high-engagement web experience.", "https://governorkaputula.github.io/will-you-be-my-valentine-website/", "ValentineExperience", "fa-solid fa-heart", "Creative")
+                };
+            }
+
+            @foreach (var p in products)
+            {
+                <div class="col-md-6">
+                    <div class="card border-0 shadow-sm h-100 product-card p-4">
+                        <div class="card-body">
+
+                            <div class="icon-wrapper">
+                                <i class="@p.Item5"></i>
+                            </div>
+
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <span class="badge bg-light text-dark rounded-pill border">@p.Item6</span>
+                            </div>
+
+                            <h4 class="fw-bold mb-2">@p.Item1</h4>
+                            <p class="text-muted mb-4" style="min-height: 50px;">@p.Item2</p>
+
+                            <div class="d-flex gap-2">
+                                <a href="@p.Item3" class="btn btn-warning btn-action flex-grow-1" target="_blank">
+                                    <i class="fa-solid fa-arrow-up-right-from-square me-1"></i> Live Demo
+                                </a>
+
+                                <!-- FIXED LINK -->
+                                <a href="@Url.Action("Index", "Checkout", new { productId = GetProductId(p.Item4) })"
+                                   class="btn btn-outline-dark btn-action flex-grow-1">
+                                    <i class="fa-solid fa-cart-shopping me-1"></i> Buy Source
+                                </a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+<!-- helper mapping -->
+@functions {
+    public int GetProductId(string code)
+    {
+        return code switch
+        {
+            "VillageBankingSuite" => 12,
+            "ComplaintSystem" => 13,
+            "WeddingInvitation" => 14,
+            "ValentineExperience" => 14,
+            _ => 1
+        };
+    }
+}
+
+<style>
+    .tracking-wider {
+        letter-spacing: 0.06em;
+    }
+
+    .tracking-tight {
+        letter-spacing: -0.02em;
+    }
+
+    .fw-black {
+        font-weight: 900;
+    }
+
+    .fw-extrabold {
+        font-weight: 800;
+    }
+
+    .fs-7.5 {
+        font-size: 0.825rem;
+    }
+
+    .mb-2.5 {
+        margin-bottom: 0.68rem !important;
+    }
+
+    /* UTILITY TRANSITION DEFINITIONS */
+    .transition-all {
+        transition: all 0.25s ease-in-out !important;
+    }
+
+    .hover-translate-up:hover {
+        transform: translateY(-4px) !important;
+        box-shadow: 0 12px 30px rgba(11, 31, 58, 0.08) !important;
+    }
+
+    /* SPECIFICATION BULLET ALIGNMENT FIXED POINT */
+    .spec-list li {
+        display: flex;
+        align-items: flex-start;
+        line-height: 1.4;
+    }
+
+        .spec-list li i {
+            margin-top: 0.15rem;
+        }
+
+    /* RESPONSIVE CARD SCALING INTERCEPTOR OVERRIDE */
+    @@media (max-width: 991.98px) {
+        .card {
+            transform: none !important;
+            margin-top: 0.5rem;
+        }
+    }
+</style>
+
+<!-- TECH SERVICES -->
+<section class="py-5 text-center">
+    <div class="container py-5">
+        <h2 class="fw-bold mb-5">Enterprise Tech Services</h2>
+        <div class="row g-4">
+            @foreach (var s in new[] { ("App Development", "fa-mobile-alt"), ("Cloud Hosting", "fa-cloud"), ("System Upgrades", "fa-sync"), ("IT Maintenance", "fa-tools") })
+            {
+                <div class="col-md-3">
+                    <i class="fa @s.Item2 fa-2x text-warning mb-3"></i>
+                    <h5 class="fw-bold">@s.Item1</h5>
+                </div>
+            }
+        </div>
+    </div>
+</section>

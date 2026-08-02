@@ -1,0 +1,143 @@
+﻿@model List<YellowphaseWebsite.Models.ContactLead>
+
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "Admin Dashboard";
+}
+
+<style>
+    /* TYPOGRAPHY AND CORE SCANNABILITY CONTROLS */
+    .fw-extrabold {
+        font-weight: 800;
+    }
+
+    .tracking-tight {
+        letter-spacing: -0.025em;
+    }
+
+    .tracking-wider {
+        letter-spacing: 0.05em;
+    }
+
+    .fs-7 {
+        font-size: 0.85rem;
+    }
+
+    .py-2.5 {
+        padding-top: 0.625rem;
+        padding-bottom: 0.625rem;
+    }
+
+    /* CORE METRICS STYLIZATION */
+    .kpi-icon-wrapper {
+        width: 44px;
+        height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.25rem;
+    }
+
+    /* REALTIME PULSE INDICATOR MACHINERY (Escaped for Razor Compiler) */
+    .pulse-indicator {
+        width: 8px;
+        height: 8px;
+        background-color: #10b981;
+        border-radius: 50%;
+        display: inline-block;
+        position: relative;
+    }
+
+        .pulse-indicator::after {
+            content: '';
+            width: 100%;
+            height: 100%;
+            background-color: inherit;
+            border-radius: 50%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            animation: pulseFade 2s infinite ease-in-out;
+            opacity: 0.6;
+        }
+
+    @@keyframes pulseFade {
+        0% {
+            transform: scale(1);
+            opacity: 0.6;
+        }
+
+        100% {
+            transform: scale(2.6);
+            opacity: 0;
+        }
+    }
+
+    /* SEGMENTED TAB SWITCHER SYSTEM */
+    .dashboard-pills {
+        background-color: #f1f5f9 !important;
+        padding: 4px !important;
+    }
+
+        .dashboard-pills .nav-link {
+            background: transparent !important;
+            color: #64748b !important;
+            border-radius: 6px !important;
+            font-size: 0.875rem;
+        }
+
+            .dashboard-pills .nav-link.active {
+                background: #ffffff !important;
+                color: #0b1f3a !important;
+                box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.03) !important;
+            }
+
+            .dashboard-pills .nav-link:hover:not(.active) {
+                color: #1e293b !important;
+                background-color: rgba(0, 0, 0, 0.02) !important;
+            }
+
+    /* VIEWPORT ANIMATION AND INTERACTIVE ENGINE (Escaped for Razor Compiler) */
+    .tab-view-wrapper {
+        animation: viewEnter 0.25s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    }
+
+    @@keyframes viewEnter {
+        from {
+            opacity: 0;
+            transform: translateY(4px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* UTILITY TRANSITIONS FRAMEWORK */
+    .transition-all {
+        transition: all 0.2s ease-in-out !important;
+    }
+
+    .hover-shadow:hover {
+        background-color: #ffffff !important;
+        border-color: #cbd5e1 !important;
+        transform: translateY(-2px);
+        box-shadow: 0 10px 15px -3px rgba(0,0,0,0.03) !important;
+    }
+</style>
+
+<script>
+    function showUsersTab() {
+
+        const usersTab = document.getElementById('users-tab');
+
+        if (!usersTab) {
+            console.error("users-tab not found");
+            return;
+        }
+
+        const tab = new bootstrap.Tab(usersTab);
+        tab.show();
+    }
+</script>

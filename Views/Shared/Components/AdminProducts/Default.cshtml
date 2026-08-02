@@ -1,0 +1,502 @@
+﻿@model List<YellowphaseWebsite.Models.Product>
+
+<style>
+    :root {
+        --coop-gold: #B59410;
+        --coop-gold-hover: #91750A;
+        --coop-dark: #0F172A;
+        --coop-slate: #1E293B;
+        --coop-border: rgba(15, 23, 42, 0.08);
+    }
+
+    .fs-7.5 {
+        font-size: 0.8rem;
+    }
+
+    /* Interactive Modern Control Deck Styles */
+    #inventoryRegistryPage .custom-dashboard-table thead th {
+        background-color: #F8FAFC;
+        color: #475569;
+        font-weight: 600;
+        text-transform: uppercase;
+        font-size: 0.725rem;
+        letter-spacing: 0.05em;
+        padding: 1rem 1.25rem;
+        border-bottom: 2px solid var(--coop-border);
+    }
+
+    #inventoryRegistryPage .custom-dashboard-table tbody td {
+        padding: 1rem 1.25rem;
+        border-bottom: 1px solid var(--coop-border);
+    }
+
+    #inventoryRegistryPage .table-actions-btn {
+        width: 32px;
+        height: 32px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 8px;
+        transition: all 0.2s ease;
+    }
+
+    /* Modal Form Custom Theme Components */
+    .coop-form-modal .form-control,
+    .coop-form-modal .form-select,
+    .coop-form-modal .input-group-text {
+        font-size: 0.875rem;
+        padding-top: 0.6rem;
+        padding-bottom: 0.6rem;
+        border-color: rgba(15, 23, 42, 0.12);
+        background-color: #ffffff;
+        transition: all 0.15s ease-in-out;
+    }
+
+        .coop-form-modal .form-control:focus,
+        .coop-form-modal .form-select:focus {
+            border-color: var(--coop-gold);
+            box-shadow: 0 0 0 4px rgba(181, 148, 16, 0.12);
+            color: var(--coop-dark);
+        }
+
+    .coop-form-modal .input-group:focus-within .input-group-text {
+        border-color: var(--coop-gold);
+        color: var(--coop-gold) !important;
+    }
+
+    .btn-coop-gradient {
+        background: linear-gradient(135deg, #C5A422 0%, #91750A 100%);
+        color: #FFFFFF !important;
+        border: none;
+    }
+
+        .btn-coop-gradient:hover {
+            background: linear-gradient(135deg, #D6B533 0%, #A28413 100%);
+        }
+
+    .hover-translate-up {
+        transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+        .hover-translate-up:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(181, 148, 16, 0.25) !important;
+        }
+</style>
+
+<div class="card border-0 rounded-4 overflow-hidden bg-white shadow-sm mt-2" id="inventoryRegistryPage">
+
+    <div class="p-4 bg-white border-bottom border-light-subtle d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3">
+        <div>
+            <h5 class="fw-bold mb-1 tracking-tight" style="color: var(--coop-dark); font-size: 1.15rem;">
+                Global Product Inventory Registry
+            </h5>
+            <p class="text-muted small mb-0">
+                Manage enterprise catalog entries, product categorizations, base prices, and authorization flags.
+            </p>
+        </div>
+
+        <div class="d-flex align-items-center gap-3 align-self-start align-self-md-center">
+            <span class="badge bg-light text-dark border px-3 py-2 rounded-3 fw-semibold fs-7.5 text-secondary">
+                Total Inventory Items: <span id="product-total-count" class="text-dark fw-bold">@Model?.Count</span>
+            </span>
+
+            <button class="btn btn-dark rounded-pill px-4 py-2 fw-bold fs-7.5 shadow-sm"
+                    data-bs-toggle="modal"
+                    data-bs-target="#addProductModal"
+                    style="background-color: var(--coop-dark); border: none;">
+                <i class="bi bi-plus-lg me-1"></i> Add Product
+            </button>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table align-middle custom-dashboard-table mb-0">
+            <thead>
+                <tr>
+                    <th>Product Details</th>
+                    <th>Classification</th>
+                    <th>Seller</th>
+                    <th>SKU / Code</th>
+                    <th>Base Valuation</th>
+                    <th>Quantity</th>
+                    <th>Status</th>
+                    <th>Source</th>
+                    <th class="text-end">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model == null || !Model.Any())
+                {
+                    <tr>
+                        <td colspan="7" class="text-center py-5 text-muted">
+                            <i class="bi bi-inboxes d-block fs-2 opacity-25 mb-2"></i>
+                            No products found in system inventory.
+                        </td>
+                    </tr>
+                }
+                else
+                {
+                    foreach (var item in Model)
+                    {
+                        var seller = item.Seller;
+                        var sellerName = !string.IsNullOrEmpty(seller?.BusinessName) ? seller.BusinessName : "System";
+                        var sellerEmail = !string.IsNullOrEmpty(seller?.Email) ? seller.Email : "N/A";
+                        <tr id="product-row-@item.Id">
+                            <td>
+                                <div class="d-flex align-items-center gap-3">
+                                    <div class="border rounded-3 bg-light d-flex align-items-center justify-content-center overflow-hidden flex-shrink-0"
+                                         style="width:44px; height:44px; border-color: rgba(15,23,42,0.06) !important;">
+                                        @if (!string.IsNullOrEmpty(item.ImageUrl))
+                                        {
+                                            <img src="@item.ImageUrl" class="w-100 h-100 object-fit-cover" alt="Product Frame" />
+                                        }
+                                        else
+                                        {
+                                            <i class="bi bi-box text-muted opacity-50"></i>
+                                        }
+                                    </div>
+                                    <div>
+                                        <div class="fw-bold text-dark">@item.Name</div>
+                                        <small class="text-muted font-monospace" style="font-size: 0.725rem;">@item.CreatedAt.ToString("yyyy-MM-dd")</small>
+                                    </div>
+                                </div>
+                            </td>
+
+                            <td>
+                                <div class="fw-semibold text-dark">@item.Category</div>
+                                <div class="text-muted small">@item.ProductType</div>
+                            </td>
+                            <td>
+                                <div class="fw-semibold text-dark">
+                                    @sellerName
+                                </div>
+
+                                @if (!string.IsNullOrEmpty(sellerName) && sellerName != "System")
+                                {
+                                    <small class="text-muted">@sellerEmail</small>
+                                }
+                            </td>
+
+                            <td>
+                                @if (!string.IsNullOrEmpty(item.ProductCode))
+                                {
+                                    <code class="bg-light px-2 py-1 rounded text-dark font-monospace small border">@item.ProductCode</code>
+                                }
+                                else
+                                {
+                                    <span class="text-muted small italic">Unassigned</span>
+                                }
+                            </td>
+                                                     
+
+                            <td class="fw-bold text-dark font-monospace">
+                                @item.Price.ToString("C")
+                            </td>
+                            <td>
+                                <span class="badge bg-dark px-3 py-2 fw-semibold">
+                                    @item.Quantity
+                                </span>
+                            </td>
+
+                            <td>
+                                @if (item.IsApproved)
+                                {
+                                    <span class="badge rounded-pill bg-success bg-opacity-10 text-success border border-success border-opacity-20 px-2.5 py-1.5 fw-semibold" style="font-size: 0.7rem;">Active</span>
+                                }
+                                else
+                                {
+                                    <span class="badge rounded-pill bg-warning bg-opacity-10 text-warning border border-warning border-opacity-20 px-2.5 py-1.5 fw-semibold" style="font-size: 0.7rem;">Suspended</span>
+                                }
+                            </td>
+
+                            <td>
+                                <span class="badge rounded-pill bg-secondary bg-opacity-10 text-secondary border border-secondary border-opacity-10 px-2.5 py-1.5 fw-semibold" style="font-size: 0.7rem;">Core Stock</span>
+                            </td>
+
+                            <td class="text-end">
+                                <div class="d-inline-flex gap-1.5">
+                                    <button type="button"
+                                            class="table-actions-btn btn btn-sm btn-light border edit-product-trigger"
+                                            data-id="@item.Id"
+                                            data-name="@item.Name"
+                                            data-price="@item.Price"
+                                            data-category="@item.Category"
+                                            data-type="@item.ProductType"
+                                            data-code="@item.ProductCode"
+                                            data-img="@item.ImageUrl"
+                                            data-desc="@item.Description"
+                                            data-approved="@item.IsApproved.ToString().ToLower()">
+                                        <i class="bi bi-pencil-square text-secondary"></i>
+                                    </button>
+
+                                    <button type="button"
+                                            class="table-actions-btn btn btn-sm btn-light border hover-danger"
+                                            onclick="deleteProductInline(@item.Id)">
+                                        <i class="bi bi-trash text-danger"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<div class="modal fade coop-form-modal" id="addProductModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-md modal-dialog-centered">
+        <div class="modal-content border-0 rounded-4 shadow-lg overflow-hidden bg-white">
+            <div class="modal-header text-white p-4 border-0 d-flex align-items-center justify-content-between" style="background: linear-gradient(145deg, #0F172A 0%, #1E293B 100%) !important;">
+                <div class="d-flex align-items-center gap-3">
+                    <div class="header-icon-frame rounded-3 d-flex align-items-center justify-content-center" style="width: 42px; height: 42px; background-color: rgba(255,255,255,0.1);">
+                        <i class="bi bi-plus-circle text-white fs-5"></i>
+                    </div>
+                    <div>
+                        <h5 class="modal-title fw-bold tracking-tight mb-0" style="font-size: 1.1rem;">Register New Asset</h5>
+                        <p class="text-white-50 small mb-0 opacity-75" style="font-size: 0.725rem;">Initializes record space directly onto active query indexes.</p>
+                    </div>
+                </div>
+                <button type="button" class="btn-close btn-close-white shadow-none opacity-75" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <form id="addProductAsyncForm" onsubmit="submitProductFormAsync(event)">
+                <div class="modal-body p-4" style="background-color: #F8FAFC;">
+                    <div class="row g-3">
+                        <div class="col-12">
+                            <label class="form-label small fw-semibold text-dark mb-1">Product Name</label>
+                            <input name="Name" class="form-control rounded-3 shadow-sm" placeholder="e.g. Industrial Inverter Valve" required />
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label small fw-semibold text-dark mb-1">Category Group</label>
+                            <input name="Category" class="form-control rounded-3 shadow-sm" placeholder="Heavy Hardware" required />
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label small fw-semibold text-dark mb-1">SKU Code Reference</label>
+                            <input name="ProductCode" class="form-control rounded-3 font-monospace shadow-sm" placeholder="YP-9900" />
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label small fw-semibold text-dark mb-1">Base Cost Evaluation ($)</label>
+                            <input name="Price" type="number" step="0.01" class="form-control rounded-3 shadow-sm" placeholder="0.00" required />
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label small fw-semibold text-dark mb-1">External Asset Illustration Source Link</label>
+                            <input name="ImageUrl" class="form-control rounded-3 shadow-sm text-secondary" placeholder="https://cdn.example.com/assets/img.jpg" />
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label small fw-semibold text-dark mb-1">Specifications &amp; Layout Log Narrative</label>
+                            <textarea name="Description" rows="3" class="form-control rounded-3 p-3 shadow-sm" placeholder="Complete contextual summary parameters details..."></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer p-3 bg-light border-0 d-flex justify-content-end gap-2">
+                    <button type="button" class="btn btn-light px-4 py-2 rounded-pill fw-semibold border shadow-none text-secondary text-xs" data-bs-dismiss="modal" style="font-size: 0.8rem;">Cancel Matrix</button>
+                    <button type="submit" class="btn btn-coop-gradient px-4 py-2 rounded-pill fw-bold shadow-sm transition-all hover-translate-up" style="font-size: 0.8rem;">Initialize Record Space</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade coop-form-modal" id="editProductModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content border-0 rounded-4 shadow-lg overflow-hidden bg-white">
+            <div class="modal-header text-white p-4 border-0 d-flex align-items-center justify-content-between" style="background: linear-gradient(145deg, #0F172A 0%, #1E293B 100%) !important;">
+                <div class="d-flex align-items-center gap-3">
+                    <div class="header-icon-frame rounded-3 d-flex align-items-center justify-content-center text-warning" style="width: 44px; height: 44px; background-color: rgba(181, 148, 16, 0.15); color: #B59410 !important;">
+                        <i class="bi bi-pencil-square fs-5"></i>
+                    </div>
+                    <div>
+                        <h5 class="modal-title fw-bold tracking-tight mb-0" style="font-size: 1.15rem;">Modify Asset Configuration</h5>
+                        <p class="text-white-50 small mb-0 opacity-75" style="font-size: 0.75rem;">Updating data modifies pipeline entries across registries immediately.</p>
+                    </div>
+                </div>
+                <button type="button" class="btn-close btn-close-white shadow-none opacity-75" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <form asp-area="Admin" asp-controller="Products" asp-action="Edit" method="post" id="editProductForm" enctype="multipart/form-data">
+                <div class="modal-body p-4" style="background-color: #F8FAFC;">
+                    <input type="hidden" id="edit_Id" name="Id" />
+
+                    <div class="mb-4">
+                        <span class="d-block text-uppercase tracking-wider fw-bold text-secondary mb-3" style="font-size: 0.725rem; letter-spacing: 0.05em;">01. Core Asset Identifiers</span>
+                        <div class="row g-3">
+                            <div class="col-md-7">
+                                <label class="form-label small fw-semibold text-dark mb-1">Product Name</label>
+                                <div class="input-group shadow-sm rounded-3 overflow-hidden">
+                                    <span class="input-group-text bg-white border-end-0 text-muted px-3"><i class="bi bi-tag"></i></span>
+                                    <input type="text" id="edit_Name" name="Name" class="form-control ps-2" required />
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <label class="form-label small fw-semibold text-dark mb-1">Base Valuation</label>
+                                <div class="input-group shadow-sm rounded-3 overflow-hidden">
+                                    <span class="input-group-text bg-white border-end-0 text-dark fw-bold px-3">ZMW</span>
+                                    <input type="number" id="edit_Price" name="Price" class="form-control ps-2 fw-bold font-monospace text-dark" step="0.01" required />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <span class="d-block text-uppercase tracking-wider fw-bold text-secondary mb-3" style="font-size: 0.725rem; letter-spacing: 0.05em;">02. Taxonomy &amp; Structural Groupings</span>
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <label class="form-label small fw-semibold text-dark mb-1">Category Group</label>
+                                <div class="input-group shadow-sm rounded-3 overflow-hidden">
+                                    <span class="input-group-text bg-white border-end-0 text-muted px-3"><i class="bi bi-folder2"></i></span>
+                                    <input type="text" id="edit_Category" name="Category" class="form-control ps-2" required />
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label small fw-semibold text-dark mb-1">Product Type</label>
+                                <div class="input-group shadow-sm rounded-3 overflow-hidden">
+                                    <span class="input-group-text bg-white border-end-0 text-muted px-3"><i class="bi bi-boxes"></i></span>
+                                    <select id="edit_ProductType" name="ProductType" class="form-select ps-2" required>
+                                        <option value="Hardware">Hardware</option>
+                                        <option value="Component">Component</option>
+                                        <option value="Service Line">Service Line</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label small fw-semibold text-dark mb-1">SKU / Code</label>
+                                <div class="input-group shadow-sm rounded-3 overflow-hidden">
+                                    <span class="input-group-text bg-white border-end-0 text-muted px-3"><i class="bi bi-qr-code"></i></span>
+                                    <input type="text" id="edit_ProductCode" name="ProductCode" class="form-control font-monospace small ps-2" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <span class="d-block text-uppercase tracking-wider fw-bold text-secondary mb-3" style="font-size: 0.725rem; letter-spacing: 0.05em;">03. Presentation Layers &amp; Media Asset Pipes</span>
+                        <div class="row g-3">
+                            <div class="col-12">
+                                <label class="form-label small fw-semibold text-dark mb-1">Upload Product Asset Illustration</label>
+                                <div class="d-flex gap-3 align-items-center bg-white p-3 border rounded-3 shadow-sm">
+                                    <div class="flex-grow-1">
+                                        <input type="file" id="edit_ImageFile" name="ImageFile" class="form-control shadow-none" accept="image/*" onchange="previewEditImage(this)" />
+                                    </div>
+                                    <div class="edit-preview-box border rounded-3 overflow-hidden bg-light d-flex align-items-center justify-content-center shadow-sm flex-shrink-0" style="width: 64px; height: 64px; border-color: rgba(15, 23, 42, 0.08) !important;">
+                                        <img id="edit_PreviewImg" src="" alt="Asset Preview" class="w-100 h-100 object-fit-cover d-none" onerror="handleEditPreviewError()" />
+                                        <i id="edit_PreviewPlaceholder" class="bi bi-image text-muted fs-4 opacity-50"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label small fw-semibold text-dark mb-1">Functional Technical Specification Parameters</label>
+                                <textarea id="edit_Description" name="Description" rows="3" class="form-control rounded-3 p-3 text-dark small shadow-sm"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="border-top pt-3 mt-3" style="border-color: rgba(15, 23, 42, 0.06) !important;">
+                        <div class="row align-items-center g-3">
+                            <div class="col-md-7">
+                                <div class="d-flex gap-2 align-items-start">
+                                    <i class="bi bi-shield-exclamation text-secondary mt-0.5" style="color: var(--coop-gold) !important;"></i>
+                                    <p class="mb-0 text-muted small" style="font-size: 0.75rem; line-height: 1.4;">Toggling parameters to invisible drops items from active storefront queries.</p>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="d-flex align-items-center justify-content-md-end gap-2">
+                                    <label class="form-label small fw-bold text-dark mb-0 me-1">System Index Visibility:</label>
+                                    <select id="edit_IsApproved" name="IsApproved" class="form-select rounded-3 small fw-bold shadow-sm" style="width: auto; min-width: 160px; font-size: 0.85rem; padding-top: 0.45rem; padding-bottom: 0.45rem;">
+                                        <option value="true" class="text-success fw-semibold">🟢 Active Catalog</option>
+                                        <option value="false" class="text-warning fw-semibold">🟡 Suspended Mode</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer p-3 bg-light border-0 d-flex justify-content-end gap-2">
+                    <button type="button" class="btn btn-light px-4 py-2 rounded-pill fw-semibold border shadow-none text-secondary transition-all" data-bs-dismiss="modal" style="font-size: 0.825rem;">Discard Matrix</button>
+                    <button type="submit" class="btn btn-coop-gradient px-4 py-2 rounded-pill fw-bold shadow-sm transition-all hover-translate-up" style="font-size: 0.825rem;">Commit Modifications</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Event delegation pattern handling mapping of incoming item model configurations
+    document.addEventListener('click', function (e) {
+        const btn = e.target.closest('.edit-product-trigger');
+        if (!btn) return;
+
+        const d = btn.dataset;
+
+        document.getElementById('edit_Id').value = d.id;
+        document.getElementById('edit_Name').value = d.name;
+        document.getElementById('edit_Price').value = d.price;
+        document.getElementById('edit_Category').value = d.category;
+        document.getElementById('edit_ProductType').value = d.type;
+        document.getElementById('edit_ProductCode').value = d.code;
+        document.getElementById('edit_Description').value = d.desc;
+        document.getElementById('edit_IsApproved').value = d.approved;
+
+        // Clear local image upload value stream
+        document.getElementById('edit_ImageFile').value = "";
+
+        // Route row asset image target reference directly onto preview container
+        setEditModalExistingImage(d.img);
+
+        const modalEl = document.getElementById('editProductModal');
+        const modalInstance = bootstrap.Modal.getInstance(modalEl) || new bootstrap.Modal(modalEl);
+        modalInstance.show();
+    });
+
+    function previewEditImage(input) {
+        const img = document.getElementById('edit_PreviewImg');
+        const placeholder = document.getElementById('edit_PreviewPlaceholder');
+
+        if (input.files && input.files[0]) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                img.src = e.target.result;
+                img.classList.remove('d-none');
+                placeholder.classList.add('d-none');
+            };
+            reader.readAsDataURL(input.files[0]);
+        } else {
+            resetEditModalThumbnail();
+        }
+    }
+
+    window.handleEditPreviewError = function () {
+        resetEditModalThumbnail();
+    };
+
+    function resetEditModalThumbnail() {
+        const img = document.getElementById('edit_PreviewImg');
+        const placeholder = document.getElementById('edit_PreviewPlaceholder');
+        img.src = '';
+        img.classList.add('d-none');
+        placeholder.classList.remove('d-none');
+    }
+
+    function setEditModalExistingImage(imgUrl) {
+        const img = document.getElementById('edit_PreviewImg');
+        const placeholder = document.getElementById('edit_PreviewPlaceholder');
+
+        if (imgUrl && imgUrl.trim() !== '' && imgUrl !== 'null') {
+            img.src = imgUrl;
+            img.classList.remove('d-none');
+            placeholder.classList.add('d-none');
+        } else {
+            resetEditModalThumbnail();
+        }
+    }
+
+    function deleteProductInline(id) {
+        if (confirm("Are you sure you want to delete this product entry?")) {
+            fetch(`/Admin/Products/DeleteAsync/${id}`, { method: "POST" })
+                .then(() => location.reload());
+        }
+    }
+</script>

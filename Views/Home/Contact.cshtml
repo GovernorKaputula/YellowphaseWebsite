@@ -1,0 +1,141 @@
+﻿@{
+    ViewData["Title"] = "Contact Us";
+}
+
+<style>
+    .contact-card {
+        background: #fff;
+        border-radius: 15px;
+        padding: 30px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+    }
+
+    .form-control {
+        border: 2px solid #e2e8f0;
+        border-radius: 10px;
+        padding: 12px;
+    }
+
+        .form-control:focus {
+            border-color: #f4c542;
+            box-shadow: none;
+        }
+
+    .icon-circle {
+        width: 50px;
+        height: 50px;
+        background: #0b1f3a;
+        color: #f4c542;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 15px;
+    }
+</style>
+
+<!-- HEADER -->
+<div class="py-5 bg-light text-center">
+    <div class="container">
+        <h1 class="fw-bold">Contact Us</h1>
+        <p class="text-muted">We are ready to support your engineering and tech requirements.</p>
+    </div>
+</div>
+
+<!-- CONTACT METHODS -->
+<div class="py-5">
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-md-4 text-center">
+                <div class="contact-card h-100">
+                    <div class="icon-circle"><i class="fa fa-map-marker-alt"></i></div>
+                    <h5 class="fw-bold">Visit Us</h5>
+                    <p class="text-muted">Plot 10492, Olympia Park<br>Manchichi Road, Lusaka, Zambia</p>
+                </div>
+            </div>
+            <div class="col-md-4 text-center">
+                <div class="contact-card h-100">
+                    <div class="icon-circle"><i class="fa fa-phone"></i></div>
+                    <h5 class="fw-bold">Call Us</h5>
+                    <p class="text-muted">+260 96 222 7741</p>
+                </div>
+            </div>
+            <div class="col-md-4 text-center">
+                <div class="contact-card h-100">
+                    <div class="icon-circle"><i class="fa fa-envelope"></i></div>
+                    <h5 class="fw-bold">Email Us</h5>
+                    <p class="text-muted">info@yellowphase.org</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- FORM & WHATSAPP -->
+<div class="py-5 bg-white">
+    <div class="container">
+        <div class="row g-5">
+            <!-- FORM -->
+            <div class="col-lg-8">
+                <div class="contact-card border shadow-none">
+                    <h3 class="fw-bold mb-4">Request a Quotation</h3>
+                    <form method="post" action="/Home/Contact" onsubmit="trackQuoteRequest()">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="fw-bold mb-1">Full Name</label>
+                                <input type="text" name="Name" class="form-control" required />
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="fw-bold mb-1">Phone Number</label>
+                                <input type="text" name="Phone" class="form-control" required />
+                            </div>
+                            <div class="col-12 mb-3">
+                                <label class="fw-bold mb-1">Email</label>
+                                <input type="email" name="Email" class="form-control" />
+                            </div>
+                            <div class="col-12 mb-3">
+                                <label class="fw-bold mb-1">Service Required</label>
+                                <select name="Service" class="form-control" required>
+                                    <option value="">-- Select Service --</option>
+                                    <option>Solar Installation</option>
+                                    <option>Electrical Works</option>
+                                    <option>Mechanical Services</option>
+                                    <option>ICT Solutions</option>
+                                </select>
+                            </div>
+                            <div class="col-12 mb-4">
+                                <label class="fw-bold mb-1">Project Details</label>
+                                <textarea name="Message" class="form-control" rows="4" placeholder="Describe your project..." required></textarea>
+                            </div>
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-yellow btn-lg w-100 fw-bold">Submit Request</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- WHATSAPP SIDEBAR -->
+            <div class="col-lg-4">
+                <div class="contact-card bg-dark text-white h-100 d-flex flex-column justify-content-center align-items-center text-center">
+                    <i class="fab fa-whatsapp fa-4x text-success mb-3"></i>
+                    <h3 class="fw-bold">Fast Response?</h3>
+                    <p class="text-white-50">Need a quick consultation? Chat with us directly on WhatsApp.</p>
+                    <a href="https://wa.me/260962227741" class="btn btn-success btn-lg mt-3 w-100" target="_blank">Chat Now</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- TikTok Event Tracking -->
+<script>
+    function trackQuoteRequest() {
+        if (typeof ttq !== 'undefined') {
+            ttq.track('SubmitForm', {
+                content_name: 'Quotation Request',
+                content_category: 'Lead Generation'
+            });
+        }
+    }
+</script>

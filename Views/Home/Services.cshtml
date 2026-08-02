@@ -1,0 +1,119 @@
+﻿@{
+    ViewData["Title"] = "Our Services";
+}
+
+<style>
+    .service-hero {
+        background: linear-gradient(135deg, #0b1f3a, #1a4d8c);
+        color: white;
+        padding: 80px 0;
+    }
+
+    .service-icon {
+        width: 60px;
+        height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #fff3cd;
+        color: #b8860b;
+        border-radius: 12px;
+        font-size: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .service-img {
+        border-radius: 20px;
+        transition: transform 0.5s ease;
+    }
+
+        .service-img:hover {
+            transform: scale(1.02);
+        }
+
+    .list-unstyled li {
+        margin-bottom: 10px;
+        color: #475569;
+    }
+
+        .list-unstyled li i {
+            color: #f4c542;
+            margin-right: 10px;
+        }
+</style>
+
+<!-- HEADER -->
+<div class="service-hero text-center">
+    <div class="container">
+        <h1 class="display-3 fw-bold">Integrated Solutions</h1>
+        <p class="lead text-white-50">Engineering excellence meeting digital innovation.</p>
+    </div>
+</div>
+
+<!-- SERVICES CONTENT -->
+<div class="py-5">
+
+    <!-- SOLAR -->
+    <section class="container py-5">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-6">
+                <div class="service-icon"><i class="fa fa-solar-panel"></i></div>
+                <h2 class="fw-bold display-6">Solar Energy</h2>
+                <p class="fs-5 text-muted">Designing and installing high-performance solar systems for a sustainable, energy-independent future.</p>
+                <ul class="list-unstyled">
+                    <li><i class="fa fa-check"></i> Hybrid & Off-Grid Systems</li>
+                    <li><i class="fa fa-check"></i> Industrial Solar PV Design</li>
+                    <li><i class="fa fa-check"></i> Battery Backup Storage</li>
+                    <li><i class="fa fa-check"></i> Preventive Maintenance</li>
+                </ul>
+            </div>
+            <div class="col-lg-6"><img src="https://images.unsplash.com/photo-1509391366360-2e959784a276" class="img-fluid service-img shadow-lg" alt="Solar"></div>
+        </div>
+    </section>
+
+    <!-- ELECTRICAL -->
+    <section class="container py-5 bg-light rounded-4 px-5">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-6 order-lg-2">
+                <div class="service-icon"><i class="fa fa-bolt"></i></div>
+                <h2 class="fw-bold display-6">Electrical Engineering</h2>
+                <p class="fs-5 text-muted">Precision-engineered electrical solutions for complex industrial and residential requirements.</p>
+                <ul class="list-unstyled">
+                    <li><i class="fa fa-check"></i> Industrial Plant Wiring</li>
+                    <li><i class="fa fa-check"></i> System Fault Diagnosis</li>
+                    <li><i class="fa fa-check"></i> Load Calculations & Panel Builds</li>
+                    <li><i class="fa fa-check"></i> Compliance & Safety Audits</li>
+                </ul>
+            </div>
+            <div class="col-lg-6 order-lg-1"><img src="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1" class="img-fluid service-img shadow-lg" alt="Electrical"></div>
+        </div>
+    </section>
+
+    <!-- ICT SOLUTIONS -->
+    <section class="container py-5">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-6">
+                <div class="service-icon"><i class="fa fa-laptop-code"></i></div>
+                <h2 class="fw-bold display-6">ICT & Digital Tech</h2>
+                <p class="fs-5 text-muted">Modernizing workflows with custom software, robust networking, and digital transformation.</p>
+                <ul class="list-unstyled">
+                    <li><i class="fa fa-check"></i> Enterprise Software Development</li>
+                    <li><i class="fa fa-check"></i> Network Design & Security</li>
+                    <li><i class="fa fa-check"></i> Cloud & Database Management</li>
+                    <li><i class="fa fa-check"></i> IT Infrastructure Consulting</li>
+                </ul>
+            </div>
+            <div class="col-lg-6"><img src="https://images.unsplash.com/photo-1518770660439-4636190af475" class="img-fluid service-img shadow-lg" alt="ICT"></div>
+        </div>
+    </section>
+
+</div>
+
+<!-- CALL TO ACTION -->
+<section class="py-5 bg-dark text-white text-center">
+    <div class="container py-4">
+        <h2 class="fw-bold">Ready to take the next step?</h2>
+        <p class="lead text-white-50 mb-4">Let's discuss how our technical team can solve your operational challenges.</p>
+        <a href="/Home/Contact" class="btn btn-yellow btn-lg px-5">Get a Free Consultation</a>
+    </div>
+</section>
